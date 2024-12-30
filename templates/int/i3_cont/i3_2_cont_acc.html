@@ -1,0 +1,47 @@
+<div id="cont_acc"><!--계약 상대자 목록-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box zone_prt">
+        <div class="zone" style="width: 100%; min-height: 600px">
+            <div class="sub_title_line">
+                <button type="button" class="btn refresh_btn" id="re_grid_accoffer"><i
+                        class="fa-solid fa-rotate-right"></i></button>
+            </div>
+            <div>
+                <div id="gridtable_accoffer"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_accoffer = gridform_accoffer("gridtable_accoffer")
+        setgrid(grid_accoffer)
+
+        $(document).ready(function () {
+            read_grid_accoffer()
+        })
+
+        $("#re_grid_accoffer").on("click", function () {
+            read_grid_accoffer()
+        })
+
+        function read_grid_accoffer() {
+            const obj = {};
+            obj["action"] = "get_accoffer"
+            grid_accoffer.readData(1, obj, false)
+        }
+
+        grid_accoffer.on('click', ev => {
+            if (ev.targetType !== 'cell') {
+                return false;
+            }
+            let ODBID_ID = grid_accoffer.getRow(ev.rowKey).ODBID_ID
+            let COM_ID = grid_accoffer.getRow(ev.rowKey).COM_ID
+            let params = {
+                "ODBID_ID": ODBID_ID,
+                "COM_ID": COM_ID
+            }
+            show_modal("get_accoffer", params)
+        })
+    </script>
+</div>

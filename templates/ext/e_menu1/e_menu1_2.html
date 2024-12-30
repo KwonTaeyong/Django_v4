@@ -1,0 +1,69 @@
+{% extends "ext/e_base.html" %}
+{% block content %}
+    <div class="main_title">
+        <h3>관심 공고</h3>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <div class="search_area">
+            </div>
+            <div class="comp_line flex3">
+                <div>
+                    <button class="btn" id="del_notiFavor">관심공고 해제</button>
+                </div>
+            </div>
+            <div id="gridtable_favorNoti" style="position: relative; z-index: 0;"></div>
+        </div>
+    </div>
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        grid_favorNoti = gridform_favorNoti("gridtable_favorNoti")
+        setgrid(grid_favorNoti)
+
+        $(document).ready(function () {
+            read_grid_favorNoti()
+        })
+
+        function read_grid_favorNoti() {
+            const obj = {};
+            obj["action"] = "get_favorNoti"
+            grid_favorNoti.readData(1, obj, false)
+        }
+
+        function inqDetail(rowKey) {
+            let odbid_id = grid_favorNoti.getRow(rowKey).ODBID_ID
+            location.href = '{% url "ext:notidetail" %}?odbidid=' + odbid_id
+        }
+
+        $("#del_notiFavor").on("click", function () {
+            let checkedRows = grid_favorNoti.getCheckedRows()
+            if (!checkedRows.length) {
+                alert("선택 한 공고가 없습니다.")
+                return false;
+            }
+            if (!confirm("선택 한 관심공고를 해제 하시겠습니까?")) {
+                return false;
+            }
+            $.ajax({
+                url: "{% url 'ext:actapi' %}",
+                type: 'POST',
+                data: {
+                    "action": "del_notifavor",
+                    "checkedRows": checkedRows
+                },
+                success: function (response) {
+                    if (response["state"]) {
+                        alert(response["message"])
+                        read_grid_favorNoti()
+                    } else {
+                        alert(response["message"])
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+    </script>
+{% endblock %}

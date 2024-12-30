@@ -1,0 +1,369 @@
+/*--------------------로딩화면--------------------*/
+.loading{
+    /*사원*/
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /*display: none;*/
+    display: flex;
+}
+.loading > div{
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: -5%;
+}
+.nemo{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nemo > div{
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.nemo:nth-child(1){
+    top: 0;
+    left: 0;
+    animation: twodong1 3s ease-out infinite;
+}
+.nemo:nth-child(2){
+    top: 0;
+    left: 40px;
+    animation: twodong2 3s ease-out infinite;
+}
+.nemo:nth-child(3){
+    top: 40px;
+    left: 0;
+    animation: twodong3 3s ease-out infinite;
+}
+.nemo:nth-child(4){
+    top: 40px;
+    left: 40px;
+    animation: twodong4 3s ease-out infinite;
+}
+@keyframes twodong1 {
+    0% {
+        top: 0px;
+        left: 0px;
+        /*border-radius: 100% 0 0 0;*/
+    }
+    25% {
+        top: 0px;
+        left: 40px;
+        /*border-radius: 0 100% 0 0;*/
+    }
+    50% {
+        top: 40px;
+        left: 40px;
+        /*border-radius: 0 0 100% 0;*/
+    }
+    75% {
+        top: 40px;
+        left: 0px;
+        /*border-radius: 0 0 0 100%;*/
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        /*border-radius: 100% 0 0 0;*/
+    }
+}
+@keyframes twodong2 {
+    0% {
+        top: 0px;
+        left: 40px;
+        /*border-radius: 0 100% 0 0;*/
+    }
+    25% {
+        top: 40px;
+        left: 40px;
+        /*border-radius: 0 0 100% 0;*/
+    }
+    50% {
+        top: 40px;
+        left: 0px;
+        /*border-radius: 0 0 0 100%;*/
+    }
+    75% {
+        top: 0px;
+        left: 0px;
+        /*border-radius: 100% 0 0 0;*/
+    }
+    100% {
+        top: 0px;
+        left: 40px;
+        /*border-radius: 0 100% 0 0;*/
+    }
+}
+@keyframes twodong3 {
+    0% {
+        top: 40px;
+        left: 40px;
+        /*border-radius: 0 0 100% 0;*/
+    }
+    25% {
+        top: 40px;
+        left: 0px;
+        /*border-radius: 0 0 0 100%;*/
+    }
+    50% {
+        top: 0px;
+        left: 0px;
+        /*border-radius: 100% 0 0 0;*/
+    }
+    75% {
+        top: 0px;
+        left: 40px;
+        /*border-radius: 0 100% 0 0;*/
+    }
+    100% {
+        top: 40px;
+        left: 40px;
+        /*border-radius: 0 0 100% 0;*/
+    }
+}
+@keyframes twodong4 {
+    0% {
+        top: 40px;
+        left: 0px;
+        /*border-radius: 0 0 0 100%;*/
+    }
+    25% {
+        top: 0px;
+        left: 0px;
+        /*border-radius: 100% 0 0 0;*/
+    }
+    50% {
+        top: 0px;
+        left: 40px;
+        /*border-radius: 0 100% 0 0;*/
+    }
+    75% {
+        top: 40px;
+        left: 40px;
+        /*border-radius: 0 0 100% 0;*/
+    }
+    100% {
+        top: 40px;
+        left: 0px;
+        /*border-radius: 0 0 0 100%;*/
+    }
+}
+
+
+
+/*--------------------메시지박스1--------------------*/
+.pop_bg{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(65,65,65,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: none;
+    /*display: flex;*/
+    transition: 0.2s;
+}
+.msgbox{
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    min-width: 250px;
+    max-width: 400px;
+    transform: scale(0,0);
+    opacity: 0;
+    transition: 0.2s;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    position: relative;
+    top: -10%;
+}
+.msgbox > .msgbox_title{
+    height: 35px;
+    background-image: linear-gradient(90deg, #3282B8, #0F4C75);
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.msgbox > .msgbox_title > div{
+    line-height: 35px;
+    font-size: 17px;
+    color: #fff;
+}
+.msgbox_x{
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.msgbox_x::after{
+    content: "\f00d";
+    font: var(--fa-font-solid);
+    font-size: 20px;
+    color: #fff;
+}
+.msgbox > .msgbox_content{
+    flex-grow: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.msgbox > .msgbox_content >div:first-child{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/*--------------------메시지박스-경고(error)--------------------*/
+
+.errorbox{
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    min-width: 250px;
+    max-width: 400px;
+    transform: scale(0,0);
+    opacity: 0;
+    transition: 0.2s;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
+    padding: 10px 40px;
+    box-sizing: border-box;
+    position: relative;
+    top: -10%;
+}
+.errorbox > .msgbox_content{
+    flex-grow: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.errorbox > .msgbox_content > div:first-child{
+    /*아이콘*/
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 30px;
+    color: #bd2d2d;
+}
+.errorbox > .msgbox_content > div:nth-child(2){
+    /*내용*/
+    text-align: center;
+    margin-bottom: 20px;
+}
+/*--------------------메시지박스-완료(success)--------------------*/
+
+.successbox{
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    min-width: 250px;
+    max-width: 400px;
+    transform: scale(0,0);
+    opacity: 0;
+    transition: 0.2s;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
+    padding: 10px 40px;
+    box-sizing: border-box;
+    position: relative;
+    top: -10%;
+}
+.successbox > .msgbox_content{
+    flex-grow: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.successbox > .msgbox_content > div:first-child{
+    /*아이콘*/
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 30px;
+    color: #006b1b;
+
+}
+.successbox > .msgbox_content > div:nth-child(2){
+    /*내용*/
+    text-align: center;
+    margin-bottom: 20px;
+}
+/*--------------------메시지박스-선택(confirm)--------------------*/
+
+.confirmbox{
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    min-width: 250px;
+    max-width: 400px;
+    transform: scale(0,0);
+    opacity: 0;
+    transition: 0.2s;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
+    padding: 10px 40px;
+    box-sizing: border-box;
+    position: relative;
+    top: -10%;
+    white-space: pre-wrap;
+}
+.confirmbox > .msgbox_content{
+    flex-grow: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.confirmbox > .msgbox_content > div:first-child{
+    /*아이콘*/
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 30px;
+    color: #0F4C75;
+}
+.confirmbox > .msgbox_content > div:nth-child(2){
+    /*내용*/
+    text-align: center;
+    margin-bottom: 20px;
+}

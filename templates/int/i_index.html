@@ -1,0 +1,37 @@
+{% extends "int/i_base.html" %}
+{% load static %}
+{% block content %}
+    <div class="main_top">
+        <ul class="main_tabs">
+            <li class="main_tab" id="new_tab" style="display: none;" title="Home">
+                <a href="#" tabindex="-1">
+                    <span></span>
+                    <span class="tab_cls_btn"><i class="fa-solid fa-x fa-xs"></i></span>
+                </a>
+            </li>
+            <li class="main_tab active" id="tab_index">
+                <a href="#" tabindex="-1">
+                    <i style="" class="fa-solid fa-house"></i>
+                </a>
+            </li>
+        </ul>
+        <button class="tab_all_cls_btn" title="모든탭닫기">
+            <i class="fa-solid fa-x fa-lg"></i>
+        </button>
+    </div>
+    <div class="main_con">
+        <div id="tab_index">
+            <div class="con_title">
+                <h3>INDEX</h3>
+            </div>
+            <div class="con_box">
+
+            </div>
+        </div>
+    </div>
+    <a type="button" class="grid_refresh" hidden></a>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'int/i_js/i_menu_tab.js' %}"></script>
+{% endblock %}
+

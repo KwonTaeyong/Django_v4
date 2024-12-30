@@ -1,0 +1,386 @@
+{% load static %}
+<div class="content_title">
+    <h3>회원가입</h3>
+</div>
+<div class="content_container">
+    <form method="post" action="{% url 'common:signup' %}">
+        {% csrf_token %}
+        {% include "common/form_errors.html" %}
+        <div class="content_div">
+            <h4>기본정보</h4>
+            <div class="content_inner">
+                <div class="form_container">
+                    <table class="form_table">
+                        <colgroup>
+                            <col style="width: 20%">
+                            <col style="width: 30%">
+                            <col style="width: 20%">
+                            <col style="width: 30%">
+                        </colgroup>
+                        <tr>
+                            <th>회원구분</th>
+                            <td>
+                                <div class="input_box"><input type="radio" id="suyo" name="user_tp"><label
+                                        for="suyo">수요업체</label></div>
+                                <div class="input_box"><input type="radio" id="gong" name="user_tp"><label
+                                        for="gong">공급업체</label></div>
+                            </td>
+                            <th>기업구분</th>
+                            <td>
+                                <select class="input_brd">
+                                    <option>소</option>
+                                    <option>중</option>
+                                    <option>대</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td><input type="text" value="(주)가나다"></td>
+                            <th>사업자등록번호</th>
+                            <td>
+                                <input type="text" value="123456789">
+                                <button class="btn_form" style="float: right">인증</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>대표자 성명</th>
+                            <td><input type="text" value="홍길동"></td>
+                            <th>법인등록번호</th>
+                            <td><input type="text" value="123456789"></td>
+                        </tr>
+                        <tr>
+                            <th>사업장주소</th>
+                            <td colspan="3"><input type="text" value="경상남도 창원시 마산회원구" style="width: 698px;"></td>
+                        </tr>
+                        <tr>
+                            <th>업태</th>
+                            <td>
+                                <input type="text" value="도.소매">
+                                <button class="btn_form" style="float: right;"><i
+                                        class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </td>
+                            <th>업종</th>
+                            <td>
+                                <input type="text" value="식음료">
+                                <button class="btn_form" style="float: right;"><i
+                                        class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td><input type="text" value="0123456789"></td>
+                            <th>팩스번호</th>
+                            <td>
+                                <select class="input_brd" style="width: 65px;">
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 55px;" value="123">
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 60px;" value="4567">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>공동인증서</th>
+                            <td colspan="3">
+                                <span style="float: left; line-height: 30px; margin-right: 10px; margin-left: 5px">등록 안 됨</span>
+                                <button class="btn_form">등록</button>
+                                <span style="line-height: 30px; margin-left: 20px; font-size: 12px">※ 인증서 등록이 완료되어야 입찰 및 견적서 제출이 가능합니다.</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content_div">
+            <h4>대표자 인증</h4>
+            <div class="content_inner">
+                <div class="form_container">
+                    <div style="font-size: 14px; margin-bottom: 5px;">※ 외국인의 경우 외국인등록증에 기재된 번호와 성명을 영문대문자로 입력(단 재외국인의 경우
+                        한글)
+                    </div>
+                    <table class="form_table">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                        </colgroup>
+                        <tr>
+                            <th>대표자 성명</th>
+                            <td><input type="text" value="홍길동"></td>
+                            <th style="font-size: 15px">대표자 주민/외국인 등록번호</th>
+                            <td>
+                                <input type="text" class="input_brd" style="width: 75px; text-align: center;"
+                                       value="123456">
+                                <span>-</span>
+                                <input type="password" class="input_brd" style="width: 75px; text-align: center;"
+                                       value="1234567">
+                                <button class="btn_form" style="float: right;">인증</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content_div">
+            <h4>부가 정보</h4>
+            <div class="content_inner">
+                <div class="form_container">
+                    <table class="form_table">
+                        <colgroup>
+                            <col style="width: 30%">
+                            <col style="width: 70%">
+                        </colgroup>
+                        <tr>
+                            <th>사업자등록증 사본</th>
+                            <td class="input_file_box">
+                                <input class="input_file_name" placeholder="첨부파일" style="width: 40%">
+                                <input type="file" id="input_file">
+                                <button class="btn_form"><label for="input_file">파일찾기</label></button>
+                                <button class="input_file_delete btn_form">파일삭제</button>
+                                <button class="input_file_view btn_form">보기</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사업자등록증 별지</th>
+                            <td class="input_file_box">
+                                <input class="input_file_name" placeholder="첨부파일" style="width: 40%">
+                                <input type="file" id="input_file">
+                                <button class="btn_form"><label for="input_file">파일찾기</label></button>
+                                <button class="input_file_delete btn_form">파일삭제</button>
+                                <button class="input_file_view btn_form">보기</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사용인감</th>
+                            <td class="input_file_box">
+                                <input class="input_file_name" placeholder="첨부파일" style="width: 40%">
+                                <input type="file" id="input_file">
+                                <button class="btn_form"><label for="input_file">파일찾기</label></button>
+                                <button class="input_file_delete btn_form">파일삭제</button>
+                                <button class="input_file_view btn_form">보기</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>홈페이지 주소</th>
+                            <td>
+                                <input type="text" value="www.aaa.aaa" style="width: 40%">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content_div">
+            <h4>관리자 정보</h4>
+            <div class="content_inner">
+                <div class="form_container">
+                    <table class="form_table">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 30%">
+                            <col style="width: 20%">
+                            <col style="width: 25%">
+                        </colgroup>
+                        <tr>
+                            <th>성명</th>
+                            <td colspan="3"><input type="text" value="고길동"></td>
+                        </tr>
+                        <tr>
+                            <th>휴대폰 번호</th>
+                            <td>
+                                <input type="text" value="010-1234-5678" style="float: left;">
+                                <button class="btn_form" style="float: right;">인증</button>
+                            </td>
+                            <th>
+                                <span>SMS 안내 수신</span>
+                            </th>
+                            <td>
+                                <div class="input_box"><input type="radio" id="sms1_o" name="sms1_ox"><label
+                                        for="sms1_o">동의</label></div>
+                                <div class="input_box"><input type="radio" id="sms1_x" name="sms1_ox"><label
+                                        for="sms1_x">비동의</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <input type="text" value="HOI_KeepGoing">
+                                <button class="btn_form" style="float: right;">중복확인</button>
+                            </td>
+                            <td colspan="2">
+                                <span style="line-height: 30px; font-size: 14px; color: #d11717; display: none">이미 사용 중인 아이디입니다.</span>
+                                <span style="line-height: 30px; font-size: 14px; color: #168745; display: none">사용 가능한 아이디입니다.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td colspan="3">
+                                <input type="password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td colspan="3">
+                                <input type="password">
+                                <span style="line-height: 30px; font-size: 14px; color: #d11717; margin-left: 25px; display: none">비밀번호가 다릅니다.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내선 번호</th>
+                            <td>
+                                <select class="input_brd" style="width: 65px;">
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 55px;" value="123">
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 60px;" value="4567">
+                            </td>
+                            <th>내선 FAX 번호</th>
+                            <td>
+                                <select class="input_brd" style="width: 65px;">
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 55px;" value="123">
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 60px;" value="4567">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>E-Mail</th>
+                            <td>
+                                <input type="text" value="HOI_KeepGoing@ababab">
+                            </td>
+                            <th>
+                                E-Mail 안내 수신
+                            </th>
+                            <td>
+                                <div class="input_box"><input type="radio" id="mail1_o" name="mail1_ox"><label
+                                        for="mail1_o">동의</label></div>
+                                <div class="input_box"><input type="radio" id="mail1_x" name="mail1_ox"><label
+                                        for="mail1_x">비동의</label></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content_div">
+            <h4>부관리자 정보</h4>
+            <div class="content_inner">
+                <div class="form_container">
+                    <table class="form_table">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 30%">
+                            <col style="width: 20%">
+                            <col style="width: 25%">
+                        </colgroup>
+                        <tr>
+                            <th>성명</th>
+                            <td colspan="3"><input type="text" value="하츄핑"></td>
+                        </tr>
+                        <tr>
+                            <th>휴대폰 번호</th>
+                            <td>
+                                <input type="text" value="010-1234-5678" style="float: left;">
+                                <button class="btn_form" style="float: right;">인증</button>
+                            </td>
+                            <th>
+                                <span>SMS 안내 수신</span>
+                            </th>
+                            <td>
+                                <div class="input_box"><input type="radio" id="sms2_o" name="sms2_ox"><label
+                                        for="sms2_o">동의</label></div>
+                                <div class="input_box"><input type="radio" id="sms2_x" name="sms2_ox"><label
+                                        for="sms2_x">비동의</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <input type="text" value="CatchTinyPing">
+                                <button class="btn_form" style="float: right;">중복확인</button>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td colspan="3">
+                                <input type="password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td colspan="3">
+                                <input type="password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내선 번호</th>
+                            <td>
+                                <select class="input_brd" style="width: 65px;">
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 55px;" value="123">
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 60px;" value="4567">
+                            </td>
+                            <th>내선 FAX 번호</th>
+                            <td>
+                                <select class="input_brd" style="width: 65px;">
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 55px;" value="123">
+                                <span>-</span>
+                                <input type="text" class="input_brd" style="width: 60px;" value="4567">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>E-Mail</th>
+                            <td>
+                                <input type="text" value="CatchTinyPing@ababab">
+                            </td>
+                            <th>
+                                E-Mail 안내 수신
+                            </th>
+                            <td>
+                                <div class="input_box"><input type="radio" id="mail2_o" name="mail2_ox"><label
+                                        for="mail2_o">동의</label></div>
+                                <div class="input_box"><input type="radio" id="mail2_x" name="mail2_ox"><label
+                                        for="mail2_x">비동의</label></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $("#input_file").on('change', function () {
+        var fileName = $("#input_file").val();
+        $(".input_file_name").val(fileName);
+    });
+    $(".input_file_delete").on('click', function () {
+        $("#input_file").val("");
+        $(".input_file_name").val("");
+    });
+
+</script>

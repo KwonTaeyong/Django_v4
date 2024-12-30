@@ -1,0 +1,638 @@
+/*---------------------------메인영역(.main_wrap) > 콘텐츠영역(.main_con)-----------------------------*/
+.main_con{
+    padding: 10px 25px 0 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 1720px;
+    min-width: 1400px;
+    top: 40px;
+    height: calc(100vh - 100px);
+    overflow: auto;
+}
+
+html, .main_con, .tb_wrap > .tb_box{
+    /* Firefox 브라우저 스크롤바 */
+    scrollbar-width: thin;
+    scrollbar-color: #a6c8e0 #FAFAFA; /* Thumb Track */
+    /* IE 브라우저 스크롤바 */
+    scrollbar-base-color: #fff;
+    scrollbar-face-color: #a6c8e0;
+    scrollbar-3dlight-color: #fff;
+    scrollbar-highlight-color: #fff;
+    scrollbar-track-color: #FAFAFA;
+    scrollbar-arrow-color: #a6c8e0;
+    scrollbar-shadow-color: #a6c8e0;
+}
+html::-webkit-scrollbar, .main_con::-webkit-scrollbar, .tb_wrap > .tb_box::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+}
+html::-webkit-scrollbar-thumb, .main_con::-webkit-scrollbar-thumb, .tb_wrap > .tb_box::-webkit-scrollbar-thumb{
+    box-sizing: border-box;
+    background-color: #a6c8e0;
+}
+html::-webkit-scrollbar-track, .main_con::-webkit-scrollbar-track, .tb_wrap > .tb_box::-webkit-scrollbar-track{
+    box-sizing: border-box;
+    background-color: #FAFAFA;
+}
+.con_title {
+    width: 100%;
+    height: 45px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.con_title > h3{
+    height: 35px;
+    line-height: 35px;
+    box-sizing: border-box;
+    width: max-content;
+    padding: 0 5px;
+    display: inline-flex;
+    align-items: center;
+
+}
+.con_title>h3::before{
+    content: "\f04b";
+    font: var(--fa-font-solid);
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+.con_box {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+/*------------------------------영역------------------------------*/
+.zone{
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #f7f9fa;
+    padding: 15px 20px 20px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.search_area{
+    border: 1px solid #27648c;
+}
+
+/*------------------------------라인------------------------------*/
+.comp_line{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 10px;
+}
+.grid_zone .comp_line{
+    margin-top: 0;
+}
+.grid_zone .comp_line .btn{
+    margin: 0 3px;
+}
+.flex1{
+    justify-content: center;
+}
+.flex2{
+    justify-content: space-between;
+}
+.flex3{
+    justify-content: flex-start;
+}
+.flex4{
+    justify-content: flex-end;
+}
+.comp_line > div{
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comp_line > div > button{
+    margin: 0 3px;
+}
+.rlt{
+    position: relative;
+}
+
+
+/*-----------------------------인풋영역-------------------------------*/
+label{
+    /*라벨더블클릭시 드래그방지*/
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+
+input:focus{
+    outline: none;
+    background-color: rgba(255,242,97,0.2);
+}
+textarea:focus{
+    outline: none;
+    background-color: rgba(255,242,97,0.2);
+}
+.date_wave{
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+input[type="date"].input{
+    width: 115px;
+}
+.date_line{
+    width: 500px !important;
+    display: flex;
+    justify-content: flex-start;
+}
+.date_line > input[type="date"].input{
+    flex-grow: 1;
+}
+.radio_label{
+    margin: 0 5px;
+    white-space: nowrap;
+}
+.radio_label > input[type="radio"]{
+    margin-right: 5px;
+}
+
+input[readonly], textarea[readonly] {
+    background-color: #F8F8F8;
+}
+
+/*-------------------------서치박스-테이블-----------------------*/
+.search_table{
+    border-collapse: collapse;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.search_table tr {
+    margin-bottom: 5px;
+}
+
+.search_box{
+    align-items: center;
+    position: relative;
+    width:300px;
+    min-width:300px;
+    margin-right: 50px;
+}
+
+.search_label{
+    border-radius: 3px;
+    color: #151515;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin-right: 3px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+.search_input{
+    border: 1px solid #bababa;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 30px;
+    width: 200px;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+/*-------------------------폼태그-테이블-----------------------*/
+.table > tbody > tr > td{
+    height: 40px;
+    padding: 0px 15px 0px 0px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/*-------------------------인풋 (타입:파일)-----------------------*/
+.input_file_box{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 30px;
+    margin: 3px 5px;
+    box-sizing: border-box;
+}
+.input_file_box > .input_title{
+    box-sizing: border-box;
+    display: inline-block;
+    background-image: linear-gradient(#EEEEEE, #DADADA);
+    border-radius: 3px;
+    color: #151515;
+    width: max-content;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin-right: 3px;
+    font-size: 15px;
+}
+.input_file_box .input_file_name{
+    /*파일 첨부-파일 명(인풋대체)*/
+    display: inline-block;
+    height: 30px;
+    border: 1px solid #bababa;
+    border-radius: 3px;
+    padding: 0 7px;
+    box-sizing: border-box;
+}
+.input_file_box label{
+    /*파일 첨부-파일찾기*/
+    cursor: pointer;
+}
+.input_file_box input[type="file"]{
+    /*파일 첨부-기존인풋(숨김)*/
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+.input_file_box > .btn{
+    box-sizing: border-box;
+    height: 20px;
+    padding: 0 5px;
+    margin-left: 3px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+/*-------------------------------버튼------------------------------*/
+.btn{
+    cursor: pointer;
+    border: none;
+    overflow: hidden;
+    min-height: 27px;
+    padding: 0 10px;
+    position: relative;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-size: 15px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+.btn.j{
+    /*정사각형버튼*/
+    width: 31px;
+    height: 30px;
+    text-align: center;
+    padding: 0;
+}
+.btn::before{
+    content: "";
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 50%;
+    background-image: radial-gradient(rgba(255,255,255,1), rgba(255,255,255,0.5), rgba(255,255,255,0), transparent);
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: -50%;
+    transform: translateY(-50%);
+    transition-duration: 0.2s;
+}
+.btn:hover::before{
+    top: 100%;
+    left: 50%;
+}
+.btn_blue{
+    background-image: linear-gradient(#75b7e6, #498ebf);
+}
+.btn_red{
+    background-image: linear-gradient(#ff796b, #f55e4e);
+}
+.btn_yellow{
+    background-image: linear-gradient(#ffe97a, #f5d742);
+}
+.btn_green{
+    background-image: linear-gradient(#9de396, #4bbd40);
+}
+.btn_gray{
+    background-image: linear-gradient(#c7c7c7, #858585);
+    color: #fff;
+}
+.btn_basic{
+    background-image: linear-gradient(#568db3, #27648c);
+    color: #fff;
+}
+.btn_confirm, .btn_cancel{
+    background-color: #3268a6;
+    color: #fff;
+}
+.errorbox .btn_confirm{
+    /*에러박스 안의 버튼색*/
+    background-color: #8a3737;
+}
+.successbox .btn_confirm{
+    /*완료박스 안의 버튼색*/
+    background-color: #256e37;
+}
+
+.refresh_btn {
+    background-image: linear-gradient(#568db3, #27648c);
+    width: 35px;
+    color: #fff;
+}
+
+.search_btn{
+    background-image: linear-gradient(#568db3, #27648c);
+    width: 31px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner_btn{
+    /*인풋안에 검색버튼*/
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/*-------------------------스위치토글버튼-----------------------*/
+.switch_btn{
+    position: relative;
+    display: inline-flex;
+}
+.switch_btn > .input_title{
+    box-sizing: border-box;
+    display: inline-block;
+    /*background-color: #DDE6ED;*/
+    width: max-content;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 5px;
+}
+#switch{
+    position: absolute;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.switch_label{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    transition: 0.2s;
+}
+.switch_span{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    width: 27px;
+    height: 26px;
+    border-radius: 1px;
+    background: gray;
+    transition: 0.2s;
+    box-shadow: inset 2px 2px 1px 0px rgba(255,255,255,0.3), inset -2px -2px 1px 0px rgba(0,0,0,0.2);
+}
+.switch_span:before{
+    content: 'OFF';
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    font-size: 12px;
+    line-height: 28px;
+    text-align: center;
+    color: #FFf;
+    font-weight: bold;
+}
+#switch:checked+.switch_label {
+    border: 2px solid #8eb4d1;
+}
+#switch:checked+.switch_label:hover {
+}
+#switch:checked+.switch_label .switch_span {
+    left: 25px;
+    background: #8eb4d1;
+}
+#switch:checked+.switch_label .switch_span:before{
+    content: 'ON';
+}
+/*-------------------------위에점(필수항목)-----------------------*/
+.req_point{
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background-color: #ffc354;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+/*-------------------------항복보기설정-----------------------*/
+.col_lists{
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translateX(-50%);
+    z-index: 10;
+    min-width: 130px;
+    max-width: 200px;
+    height: 0px;
+    box-sizing: border-box;
+    background-image: linear-gradient(#fcfeff, #e4e8eb);
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Firefox 브라우저 스크롤바 */
+    scrollbar-width: thin;
+    scrollbar-color: #a6c8e0 #FAFAFA; /* Thumb Track */
+    /* IE 브라우저 스크롤바 */
+    scrollbar-base-color: #fff;
+    scrollbar-face-color: #a6c8e0;
+    scrollbar-3dlight-color: #fff;
+    scrollbar-highlight-color: #fff;
+    scrollbar-track-color: #FAFAFA;
+    scrollbar-arrow-color: #a6c8e0;
+    scrollbar-shadow-color: #a6c8e0;
+}
+.col_lists::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+}
+.col_lists::-webkit-scrollbar-thumb{
+    box-sizing: border-box;
+    background-color: #a6c8e0;
+}
+.col_lists::-webkit-scrollbar-track{
+    box-sizing: border-box;
+}
+.col_h{
+    /*리스트 높이*/
+    height: 200px;
+}
+.col_lists > label{
+    width: 100%;
+    padding: 4px 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #dedede;
+}
+.col_lists input[type="checkbox"]{
+    margin-right: 5px;
+}
+#col_list_btn{
+    display: none;
+}
+#col_list_btn+label{
+    display: inline-flex;
+    align-items: center;
+}
+.all_check{
+    color: #0b5c99;
+    font-weight: bold;
+}
+
+/*------------------------------------------3-1구매입찰등록 첫사용--------------------------------------------*/
+.tb_wrap{
+    position: relative;
+}
+.tb_wrap > .tb{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    table-layout: fixed;
+    border-top: 1px solid #ababab;
+}
+.tb_wrap > .tb > thead{
+    display: block;
+    padding-right: 5px;
+    background-color: #ebeced;
+}
+.tb_wrap > .tb > thead > tr{
+    display: flex;
+    flex-wrap: wrap;
+}
+.tb_wrap > .tb > thead > tr > th{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+.tb_wrap > .tb > tbody {
+    display: block;
+    overflow: auto;
+    min-height: 150px;
+    height: 150px;
+    resize: vertical;
+}
+.tb_wrap > .tb > tbody > tr{
+    border-top: 1px solid #ababab;
+    display: flex;
+    flex-wrap: wrap;
+}
+.tb_wrap > .tb > tbody > tr:last-child{
+    border-bottom: 1px solid #ababab;
+}
+.tb_wrap > .tb > tbody > tr > td{
+    display: flex;
+    flex-wrap: wrap;
+
+    flex: 1;
+    border-right: 1px solid #cccccc;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.tb th, .tb td{
+    padding: 0 10px;
+    min-height: 30px;
+}
+.tb_wrap > .tb > tbody > tr > td:last-child{
+    border-right: none;
+}
+
+.tb_wrap > .tb > tbody {
+    /* Firefox 브라우저 스크롤바 */
+    scrollbar-width: thin;
+    scrollbar-color: #a6c8e0 #FAFAFA; /* Thumb Track */
+    /* IE 브라우저 스크롤바 */
+    scrollbar-base-color: #fff;
+    scrollbar-face-color: #a6c8e0;
+    scrollbar-3dlight-color: #fff;
+    scrollbar-highlight-color: #fff;
+    scrollbar-track-color: #FAFAFA;
+    scrollbar-arrow-color: #a6c8e0;
+    scrollbar-shadow-color: #a6c8e0;
+}
+.tb_wrap > .tb > tbody::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.tb_wrap > .tb > tbody::-webkit-scrollbar-thumb{
+    box-sizing: border-box;
+    background-color: #a6c8e0;
+}
+.tb_wrap > .tb > tbody::-webkit-scrollbar-track{
+    box-sizing: border-box;
+    background-color: #FAFAFA;
+}
+.sub_title_line {
+    display: inline;
+    margin-bottom: 10px;
+}
+
+
+.sub_title{
+    position: relative;
+    left: 25px;
+    box-sizing: border-box;
+    width: max-content;
+    margin: 5px 0 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.sub_title::before{
+    content: "";
+    position: absolute;
+    left: -17px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    background-image: radial-gradient(#ffffff, #5e92cc, #2b6cb5);
+}

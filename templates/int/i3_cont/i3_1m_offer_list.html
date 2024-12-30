@@ -1,0 +1,115 @@
+<div class="side_modal-content" style="width: 1000px;right: -1000px;">
+    <div>
+        <input value="{{ ODBID_ID }}" id="odbiddtl_odbid_id" hidden/>
+        <div class="zone" style="width: 100%; min-height: 720px">
+            <span class="sub_title">견적 상세</span>
+            <form>
+                <table class="table" style="width: 100%">
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">구매구분</span>
+                                <select class="input" disabled>
+                                    <option value="{{ NOTI_TP }}">공개견적</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">견적 마감일</span>
+                                <div class="date_line">
+                                    <input type="date" class="input" value="{{ NOTI_DD }}"
+                                           readonly>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="input_box">
+                                <span class="input_title">견적 요청명</span>
+                                <input type="text" class="input" style="width: 100%" value="{{ NOTI_NM }}" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="vertical-align: bottom">
+                            <span class="input_title" style="float: left" readonly>주요 요청 사항</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                                    <textarea class="input"
+                                              style="resize: none; width: 100%; height: 200px"
+                                              readonly>{{ NOTI_INFO }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input_box">
+                                <span class="input_title">첨부파일</span>
+                                <a href="#">{{ ATT }}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input_box">
+                                <span class="input_title">견적업체명</span>
+                                <input type="text" class="input" style="width: 150px" value="{{ COM_NM }}" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="gridtable_offerdtl"></div>
+                <div class="comp_line flex1">
+                    <div>
+                        <button class="btn btn_basic" id="acc_offer" type="button">계약 상대자 결정</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input id="ODBID_ID" value="{{ ODBID_ID }}" hidden/>
+<input id="COM_ID" value="{{ COM_ID }}" hidden/>
+
+<script type="text/javascript">
+    grid_offerdtl = gridform_offerdtl("gridtable_offerdtl")
+    setgrid(grid_offerdtl, 0, 1)
+
+    $(document).ready(function () {
+        const obj = {};
+        obj["action"] = "get_offerdtl"
+        obj["ODBID_ID"] = $("#ODBID_ID").val()
+        obj["COM_ID"] = $("#COM_ID").val()
+        grid_offerdtl.readData(1, obj, false)
+    })
+
+    $("#acc_offer").on("click", function () {
+        mpop.confirm("계약상대자로 결정하시겠습니까?", function () {
+            $.ajax({
+                url: "{% url 'int:actapi' %}",
+                type: 'POST',
+                data: {
+                    "action": "acc_offer",
+                    "ODBID_ID": $("#ODBID_ID").val(),
+                    "COM_ID": $("#COM_ID").val()
+                },
+                success: function (response) {
+                    if (response["state"]) {
+                        mpop.success("계약상대자로 결정되었습니다.")
+                        hide_modal()
+                        read_grid_offernoti()
+                    } else {
+                        mpop.error(response["message"])
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                    mpop.error("네트워크 오류로 실패하였습니다.");
+                }
+            })
+        })
+    })
+</script>

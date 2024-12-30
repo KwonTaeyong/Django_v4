@@ -1,0 +1,106 @@
+<!----------------------로딩화면---------------------->
+<div class="loading" style="display: none">
+    <div>
+        <div class="nemo">
+            <div></div>
+        </div>
+        <div class="nemo">
+            <div></div>
+        </div>
+        <div class="nemo">
+            <div></div>
+        </div>
+        <div class="nemo">
+            <div></div>
+        </div>
+    </div>
+</div>
+<!----------------------메시지박스1---------------------->
+<div class="msgbg pop_bg">
+    <div class="msgbox pop_box">
+        <div class="msgbox_title">
+            <div>메시지 박스 제목입니다.</div>
+            <button class="msgbox_x msgbox_close"></button>
+        </div>
+        <div class="msgbox_content">
+            <div id="msg_body">
+            </div>
+            <div class="comp_line flex1">
+                <div>
+                    <button class="btn btn_confirm msgbox_close">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------------메시지박스-경고(error)---------------------->
+<div class="errorbg pop_bg">
+    <div class="errorbox pop_box">
+        <div class="msgbox_content">
+            <div><!--아이콘--><i class="fa-solid fa-triangle-exclamation fa-2xl"></i></div>
+            <div id="error_body"><!--msg--></div>
+            <div class="comp_line flex1">
+                <div>
+                    <button class="btn btn_confirm msgbox_close">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------------메시지박스-완료(success)---------------------->
+<div class="successbg pop_bg">
+    <div class="successbox pop_box">
+        <div class="msgbox_content">
+            <div><!--아이콘--><i class="fa-solid fa-circle-check fa-2xl"></i></div>
+            <div id="success_body"><!--msg--></div>
+            <div class="comp_line flex1">
+                <div>
+                    <button class="btn btn_confirm msgbox_close">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------------메시지박스-확인(confirm)---------------------->
+<div class="confirmbg pop_bg">
+    <div class="confirmbox pop_box">
+        <div class="msgbox_content">
+            <div><!--아이콘--><i class="fa-solid fa-circle-question fa-2xl"></i></div>
+            <div id="confirm_body"><!--msg--></div>
+            <div class="comp_line flex1">
+                <div>
+                    <button id="confirm_ok" class="btn btn_confirm">확인</button>
+                    <button class="btn btn_cancel msgbox_close">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------------엑셀업로드---------------------->
+<div class="excelbg pop_bg">
+    <div class="excelbox msgbox">
+        <div class="msgbox_title">
+            <div>사용자 목록 엑셀 업로드</div>
+            <button class="msgbox_x msgbox_close"></button>
+        </div>
+        <div class="msgbox_content">
+            <div id="excel_body">
+                <div class="input_file_box">
+                    <input class="input_file_name" placeholder="엑셀파일">
+                    <input type="file" id="input_file">
+                    <label class="btn btn_gray" for="input_file">파일찾기</label>
+                    <button type="button" class="btn btn_gray input_file_delete" style="height: 15px;">파일삭제</button>
+                </div>
+                <div style="font-size: 14px; text-align: center; margin-top: 15px">
+                    ※ 사용자 목록을 일괄 업로드 할 수 있습니다.<br>
+                    <a href="#" style="font-size: 15px; text-align: center; margin-top: 5px; color: #2354a8">양식다운로드</a>
+                </div>
+            </div>
+            <div class="comp_line flex1">
+                <div>
+                    <button class="btn btn_confirm msgbox_close">업로드</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

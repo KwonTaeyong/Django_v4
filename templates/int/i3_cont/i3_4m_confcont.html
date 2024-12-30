@@ -1,0 +1,147 @@
+{% load date_tags %}
+<div class="side_modal-content" style="width: 1000px;right: -1000px;">
+    <div>
+        <div class="zone" style="width: 100%; min-height: 720px">
+            <span class="sub_title">구매 계약({{ CONT_ID }})</span>
+            <div id="gridtable_offerdtl"></div>
+            <table class="table" style="width: 100%">
+                <tr>
+                    <td colspan="2" style="vertical-align: bottom">
+                        <span class="input_title" style="float: left" readonly>본 문</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                            <textarea class="input"
+                                      style="resize: none; width: 100%; height: 150px"
+                                      readonly>{{ CONT_BODY }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">계약 방법</span>
+                            <input type="text" class="input" style="width: 100%" value="공개견적"
+                                   readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">계약 업체명</span>
+                            <input type="text" class="input" style="width: 100%" value="{{ ECOM_NM }}"
+                                   readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">계약명</span>
+                            <input type="text" class="input" style="width: 100%"
+                                   value="{{ CONT_NM }}" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">계약 작성일자</span>
+                            <input type="date" class="input" style="width: 100%" value="{% today %}"
+                                   readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">계약보증금(%)</span>
+                            <input type="number" min="0" max="100" maxlength="2" class="input"
+                                   style="width: 50%" value="{{ CONT_DEPO }}" readonly>
+                            <span>%</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">납품일자</span>
+                            <div class="date_line">
+                                <input type="date" class="input"
+                                       value="{% today %}" min="{{ DELIVE_STDT }}" readonly>
+
+                                <span class="date_wave">~</span>
+                                <input type="date" class="input"
+                                       value="{% today %}" min="{{ DELIVE_EDDT }}" readonly>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="input_box">
+                            <span class="input_title">납품지 주소</span>
+                            <input type="text" class="input" style="width: 100%"
+                                   value="{{ DELIVE_ADD }}" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="vertical-align: bottom">
+                        <span class="input_title" style="float: left" readonly>기타사항</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                            <textarea class="input"
+                                      style="resize: none; width: 100%; height: 100px"
+                                      readonly>{{ CONT_RMK }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">공급업체명</span>
+                            <input type="text" class="input" style="width: 100%" value="{{ ECOM_NM }}"
+                                   readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">담당자</span>
+                            <input type="text" class="input" style="width: 100%" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">대표자</span>
+                            <input type="text" class="input" style="width: 100%" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">사업자등록번호</span>
+                            <input type="text" class="input" style="width: 100%" readonly>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <input id="confcontodbidid" value="{{ ODBID_ID }}" hidden/>
+    <input id="confcontcomid" value="{{ COM_ID }}" hidden/>
+</div>
+
+<script type="text/javascript">
+    grid_offerdtl = gridform_offerdtl("gridtable_offerdtl")
+    setgrid(grid_offerdtl, 0, 1)
+
+    $(document).ready(function () {
+        read_grid_offerdtl()
+    })
+
+    function read_grid_offerdtl() {
+        const obj = {};
+        obj["action"] = "get_offerdtl"
+        obj["ODBID_ID"] = $("#confcontodbidid").val()
+        obj["COM_ID"] = $("#confcontcomid").val()
+        grid_offerdtl.readData(1, obj, false)
+    }
+</script>

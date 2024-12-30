@@ -1,0 +1,139 @@
+{% extends "ext/e_base.html" %}
+{% block content %}
+    <div class="main_title">
+        <h3>회사 정보</h3>
+    </div>
+    <div class="main_content">
+        <div class="main_contents office" style="min-height: 500px;">
+            <form class="form office">
+                <div class="comp_line" style="justify-content: flex-end">
+                    <div>
+                        <button class="btn btn_basic">저장</button>
+                    </div>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">회사ID</span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">대표자명<span class="req_point"></span></span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">회사명<span class="req_point"></span></span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">회사명(영)<span class="req_point"></span></span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">사업구분<span class="req_point"></span></span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">등록번호<span class="req_point"></span></span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">등록증</span>
+                                <input type="text" class="input" readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box date">
+                                <span class="input_title">설립일</span>
+                                <input type="date" class="input" readonly>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">전화번호</span>
+                                <input type="text" class="input">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">이메일</span>
+                                <input type="text" class="input">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input_box">
+                                <span class="input_title">우편번호</span>
+                                <div class="rlt">
+                                    <input type="text" class="input">
+                                    <button type="button" class="inner_btn">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="input_box">
+                                <span class="input_title">주소1</span>
+                                <input type="text" class="input">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="input_box">
+                                <span class="input_title">주소2</span>
+                                <input type="text" class="input">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        $(".test1").on("click", function () {
+            $(".loading").css("display", "flex")
+            setTimeout(function () {
+                $(".loading").css("display", "none")
+            }, 1500)
+        });
+
+        $("#input_file").on('change', function () {
+            var fileName = $("#input_file").val();
+            $(".input_file_name").val(fileName);
+            console.log(fileName)
+        });
+        $(".input_file_delete").on('click', function () {
+            $("#input_file").val("");
+            $(".input_file_name").val("");
+            console.log($("#input_file").val());
+        });
+    </script>
+{% endblock %}

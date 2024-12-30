@@ -1,0 +1,21 @@
+{% extends "ext/e_base.html" %}
+{% block content %}
+    <div class="main_title">
+        <h3>지명 견적 요청</h3>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <div class="search_area">
+            </div>
+            <div class="comp_line flex3">
+            </div>
+            <div id="gridtable_favorNoti" style="position: relative; z-index: 0;"></div>
+        </div>
+    </div>
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        grid_favorNoti = gridform_favorNoti("gridtable_favorNoti")
+        setgrid(grid_favorNoti)
+    </script>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% load date_tags %}
+<div id="item_list"><!--품목관리-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone search_area">
+            <form class="form">
+                <table class="search_table">
+                    <tr>
+                        <td class="search_box">
+                            <label class="search_label">사용 여부</label>
+                            <select class="search_input">
+                                <option value="Y" selected>Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                        <td class="search_box">
+                            <label class="search_label">품목</label>
+                            <input type="text" class="search_input">
+                        </td>
+                        <td class="search_box date_line">
+                            <label class="search_label">요청일</label>
+                            <input type="date" class="search_input" id="st_dt_iteminfo" value="{% week_ago 4 %}">
+                            <span class="date_wave">~</span>
+                            <input type="date" class="search_input" id="ed_dt_iteminfo" value="{% today %}">
+                        </td>
+                        <td class="search_box">
+                            <button type="button" class="btn search_btn" id="search_iteminfo">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="zone">
+            <div class="comp_line flex2">
+                <div>
+                    <button type="button" class="btn btn_basic" id="add_iteminfo">품목 추가</button>
+                    <button type="button" class="btn btn_gray" id="del_iteminfo">삭제</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn_gray" id="reset_iteminfo">변경사항 초기화</button>
+                    <button type="button" class="btn btn_basic" id="saveitem_iteminfo">변경사항 저장</button>
+                </div>
+            </div>
+            <div id="gridtable_itemlist"></div>
+        </div>
+    </div>
+    <script>
+        grid_itemlist = gridform_itemlist("gridtable_itemlist")
+        setgrid(grid_itemlist)
+
+        $(document).ready(function () {
+            read_grid_itemlist()
+        })
+
+        function read_grid_itemlist() {
+            const obj = {};
+            obj["action"] = "get_itemlist"
+            grid_itemlist.readData(1, obj, false)
+        }
+
+        $("#add_iteminfo").on("click", function () {
+            grid_itemlist.appendRow({USE_YN: "Y"}, {at: 0, focus: true});
+        })
+        $("#del_iteminfo").on("click", function () {
+            let checkedRows = grid_itemlist.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 품목이 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 품목을 삭제 하시겠습니까?", function () {
+                let checkedRows = grid_itemlist.getCheckedRows()
+                $.each(checkedRows, function (i, row) {
+                    if (row.OD_QT > 0) {
+                        mpop.error("사용 되고 있는 품목은 삭제 할 수 없습니다.")
+                    } else {
+                        let rowKey = row.rowKey
+                        grid_itemlist.removeRow(rowKey)
+                    }
+                })
+            })
+        })
+
+        $("#reset_iteminfo").on("click", function () {
+            const modifiedRows = grid_itemlist.getModifiedRows()
+            const hasChanges =
+                modifiedRows.createdRows.length > 0 ||
+                modifiedRows.updatedRows.length > 0 ||
+                modifiedRows.deletedRows.length > 0;
+            if (!hasChanges) {
+                mpop.error("변경사항이 없습니다.")
+                return false;
+            }
+            mpop.confirm("모든 변경 사항을 초기화 하시겠습니까?\n\n이미 저장 한 변경사항은 되돌릴 수 없습니다.", function () {
+                grid_itemlist.restore()
+            })
+        })
+
+        $("#saveitem_iteminfo").on("click", function () {
+            const modifiedRows = grid_itemlist.getModifiedRows()
+            const hasChanges =
+                modifiedRows.createdRows.length > 0 ||
+                modifiedRows.updatedRows.length > 0 ||
+                modifiedRows.deletedRows.length > 0;
+            if (!hasChanges) {
+                mpop.error("변경사항이 없습니다.")
+                return false;
+            }
+            // 필수값 확인
+            const allRowsData = grid_itemlist.getData();
+            let allRowsHaveRequiredValue = true;
+            for (let i = 0; i < allRowsData.length; i++) {
+                const rowData = allRowsData[i];
+                if (!rowData.ITEM_NM || rowData.ITEM_NM.trim() === "") {
+                    mpop.error("필수 값을 입력 해주세요.")
+                    grid_itemlist.startEditing(rowData["rowKey"], "ITEM_NM")
+                    allRowsHaveRequiredValue = false;
+                    break;
+                }
+            }
+            if (!allRowsHaveRequiredValue) {
+                return false;
+            }
+            mpop.confirm("변경사항을 저장하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        "action": "save_item",
+                        "modifiedRows": modifiedRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("변경사항을 저장하였습니다.")
+                            read_grid_itemlist()
+                        } else {
+                            mpop.error(response["message"])
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                        mpop.error("네트워크 오류로 실패하였습니다.");
+                    }
+                })
+            })
+        })
+    </script>
+</div>

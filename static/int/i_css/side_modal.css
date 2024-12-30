@@ -1,0 +1,45 @@
+.side_modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+}
+.side_modal-content {
+    background-color: #fefefe;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    width: 550px;/*박스너비*/
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    right: -550px;/*박스너비만큼오른쪽으로사라짐*/
+    box-shadow: 0px 0px 15px 0px  rgba(0, 0, 0, 0.4);
+    transition: 0.2s;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+.side_modal-content::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+.side_close {
+    color: #151515;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.side_close:hover,
+.side_close:focus {
+    color: #3268a6;
+    text-decoration: none;
+    cursor: pointer;
+}

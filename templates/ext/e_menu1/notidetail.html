@@ -1,0 +1,129 @@
+{% extends "ext/e_base.html" %}
+{% load date_tags %}
+{% block content %}
+    <div>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <span class="sub_title">견적 요청 상세</span>
+            <form>
+                <div class="input_box">
+                    <span class="input_title">공고구분</span>
+                    <input type="text" class="input" value="공개견적" disabled/>
+                </div>
+                <div class="input_box date">
+                    <label class="input_title">마감일</label>
+                    <input type="date" class="input" value="{{ NOTI_DD }}" disabled>
+                </div>
+                <div class="input_box" style="margin-bottom: 30px;">
+                    <span class="input_title">견적 요청명</span>
+                    <input type="text" class="input" value="{{ NOTI_NM }}" disabled>
+                </div>
+                <textarea class="input" style="resize: none; width: 100%; height: 200px"
+                          disabled>{{ NOTI_INFO }}</textarea>
+                <div class="input_box file" style="margin-bottom: 30px;">
+                    <label class="input_title file">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </label>
+                    <a href="#" class="input"></a>
+                </div>
+                <div id="table_notidetail" style="position: relative; z-index: 0;"></div>
+            </form>
+        </div>
+
+        <div class="comp_line flex1">
+            <div>
+                <button class="btn" id="send_offer">견적 보내기</button>
+            </div>
+            <div>
+                <button class="btn" id="reg_notifavor">관심공고 등록</button>
+            </div>
+            <div>
+                <button class="btn" id="backtolist">목록</button>
+            </div>
+        </div>
+    </div>
+    <input id="notidetail_odbidid" value="{{ ODBID_ID }}" hidden>
+{% endblock content %}
+{% block script %}
+    <script>
+        grid_notidetail = gridform_notidetail("table_notidetail")
+        setgrid(grid_notidetail)
+
+        $(document).ready(function () {
+            read_grid_notidetail()
+        })
+
+        function read_grid_notidetail() {
+            const obj = {};
+            obj["action"] = "get_notidetail"
+            obj["odbid_id"] = $("#notidetail_odbidid").val()
+            grid_notidetail.readData(1, obj, false)
+        }
+
+        $("#send_offer").on("click", function () {
+            let dataList = grid_notidetail.getData()
+            // 필수값 확인
+            let allRowsHaveRequiredValue = true;
+            for (let i = 0; i < dataList.length; i++) {
+                const data = dataList[i];
+                if (!data.OFFER_AMU || data.OFFER_AMU.trim() === "") {
+                    alert("공급 단가를 모두 입력 해주세요.")
+                    grid_notidetail.startEditing(data["rowKey"], "OFFER_AMU")
+                    allRowsHaveRequiredValue = false;
+                    break;
+                }
+            }
+            if (!allRowsHaveRequiredValue) {
+                return false;
+            }
+            if (!confirm("해당 내용으로 견적을 보내시겠습니까?")) {
+                return false;
+            }
+            $.ajax({
+                url: "{% url 'ext:actapi' %}",
+                type: 'POST',
+                data: {
+                    "action": "send_offer",
+                    "dataList": dataList
+                },
+                success: function (response) {
+                    if (response["state"]) {
+                        alert(response["message"])
+                    } else {
+                        alert(response["message"])
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+
+        $("#reg_notifavor").on("click", function () {
+            $.ajax({
+                url: "{% url 'ext:actapi' %}",
+                type: 'POST',
+                data: {
+                    action: "reg_notifavor",
+                    odbid_id: $("#notidetail_odbidid").val()
+                },
+                success: function (response) {
+                    if (response["state"]) {
+                        alert(response["message"])
+                        window.history.go(-1);
+                    } else {
+                        alert(response["message"])
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+
+        $("#backtolist").on("click", function () {
+            window.history.go(-1);
+        })
+    </script>
+{% endblock %}

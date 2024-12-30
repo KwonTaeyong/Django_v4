@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOGIN</title>
+    <!--파비콘-->
+    <link rel="shortcut icon" href="{% static 'common/img/favicon.ico' %}"/>
+    <!-- 폰트어썸 -->
+    <script src="https://kit.fontawesome.com/e1807ed9b8.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- CSS -->
+    <link href="{% static 'common/css/login.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<div style="text-align: center; font-size: 50px;">
+</div>
+<div class="all_wrap">
+    <div class="content_wrap">
+        <div class="logo"><a href="#"><img src="{% static 'common/img/logo_c.png' %}"></a></div>
+        <div class="content_box">
+            <div class="type_box">
+                <input class="type_input" type="radio" id="suyo" name="login_type" value="suyo" checked>
+                <label for="suyo"><span>수요업체</span></label>
+                <input class="type_input" type="radio" id="gong" name="login_type" value="gong">
+                <label for="gong"><span>공급업체</span></label>
+            </div>
+            <div class="con_box">
+                <div class="suyo_con">
+                    <form method="post" action="{% url 'common:login' %}">
+                        {% csrf_token %}
+                        {% include "common/form_errors.html" %}
+                        <!--수요로그인-->
+                        <div class="suyo_id">
+                            <span><i class="fa-solid fa-user fa-sm"></i></span>
+                            <input type="text" name="username" placeholder="아이디" class="suyo_id_input" value="test">
+                        </div>
+                        <div class="suyo_pw">
+                            <span><i class="fa-solid fa-key fa-sm"></i></span>
+                            <input type="password" name="password" placeholder="비밀번호" class="suyo_pw_input"
+                                   value="1">
+                        </div>
+                        <button type="submit" class="btn suyo">로그인
+                        </button>
+                        <div class="con_bottom">
+                            <div><a href="#">수요업체 등록</a></div>
+                            <span></span>
+                            <div><a href="#">아이디 찾기</a></div>
+                            <span></span>
+                            <div><a href="#">비밀번호 찾기</a></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="gong_con">
+                    <form method="post" action="{% url 'common:login' %}">
+                        {% csrf_token %}
+                        {% include "common/form_errors.html" %}
+                        <!--공급로그인-->
+                        <div class="gong_id">
+                            <span><i class="fa-solid fa-user fa-sm"></i></span>
+                            <input type="text" name="username" placeholder="아이디" class="gong_id_input"
+                                   value="test2">
+                        </div>
+                        <div class="gong_pw">
+                            <span><i class="fa-solid fa-key fa-sm"></i></span>
+                            <input type="password" name="password" placeholder="비밀번호" class="gong_pw_input"
+                                   value="1">
+                        </div>
+                        <button type="submit" class="btn gong">로그인
+                        </button>
+                        <div class="con_bottom">
+                            <div><a href="#">공급업체 등록</a></div>
+                            <span></span>
+                            <div><a href="#">아이디 찾기</a></div>
+                            <span></span>
+                            <div><a href="#">비밀번호 찾기</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    $(".suyo_con").css("display", "block")
+    $(".type_input").on("change", function () {
+        let $suyo_con = $(".suyo_con")
+        let $gong_con = $(".gong_con")
+        if (this.id === "suyo") {
+            $suyo_con.css("display", "block")
+            $gong_con.css("display", "none")
+        } else {
+            $suyo_con.css("display", "none")
+            $gong_con.css("display", "block")
+        }
+    })
+
+    $(".suyo_id_input").on("focus", function () {
+        $(".suyo_id").addClass("focus_bd1")
+        $(".suyo_id_input").siblings("span").children("i").addClass("focus_cl1")
+    })
+    $(".suyo_id_input").on("focusout", function () {
+        $(".suyo_id").removeClass("focus_bd1")
+        $(".suyo_id_input").siblings("span").children("i").removeClass("focus_cl1")
+    })
+    $(".suyo_pw_input").on("focus", function () {
+        $(".suyo_pw").addClass("focus_bd1")
+        $(".suyo_pw_input").siblings("span").children("i").addClass("focus_cl1")
+    })
+    $(".suyo_pw_input").on("focusout", function () {
+        $(".suyo_pw").removeClass("focus_bd1")
+        $(".suyo_pw_input").siblings("span").children("i").removeClass("focus_cl1")
+    })
+
+    $(".gong_id_input").on("focus", function () {
+        $(".gong_id").addClass("focus_bd2")
+        $(".gong_id_input").siblings("span").children("i").addClass("focus_cl2")
+    })
+    $(".gong_id_input").on("focusout", function () {
+        $(".gong_id").removeClass("focus_bd2")
+        $(".gong_id_input").siblings("span").children("i").removeClass("focus_cl2")
+    })
+    $(".gong_pw_input").on("focus", function () {
+        $(".gong_pw").addClass("focus_bd2")
+        $(".gong_pw_input").siblings("span").children("i").addClass("focus_cl2")
+    })
+    $(".gong_pw_input").on("focusout", function () {
+        $(".gong_pw").removeClass("focus_bd2")
+        $(".gong_pw_input").siblings("span").children("i").removeClass("focus_cl2")
+    })
+</script>
+</html>

@@ -1,0 +1,103 @@
+/*--------------------로딩화면2--------------------*/
+.loading{
+    /*탱탱볼*/
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: none;
+    /*display: flex;*/
+}
+.loading > div{
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform: translateX(50%);
+}
+
+.ball{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    animation: ting 1s ease-in infinite;
+    z-index: 2;
+    background: radial-gradient( at 30% 20%, #fff, #ffdf75, #ffc536, #ffb600);
+}
+.ball_shadow{
+    width: 45px;
+    height: 10px;
+    background-color: #555555;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px 1px #555555;
+    opacity: 0.7;
+    position: absolute;
+    /*top: 175px;*/
+    /*left: 10px;*/
+    z-index: 1;
+    top: 120px;
+    left: 155px;
+    animation: ting2 1s ease-in infinite;
+}
+
+@keyframes ting {
+    0%{
+        top: 0px;
+        height: 50px;
+    }
+    48%{
+        top: 130px;
+        height: 50px;
+    }
+    49%{
+        top: 140px;
+        height: 40px;
+    }
+    50%{
+        top: 150px;
+        height: 30px;
+    }
+    51%{
+        top: 140px;
+        height: 40px;
+    }
+    52%{
+        top: 130px;
+        height: 50px;
+    }
+    100%{
+        top: 0px;
+        height: 50px;
+    }
+}
+@keyframes ting2{
+    0%{
+        top: 120px;
+        left: 155px;
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+    50%{
+        top: 175px;
+        left: 10px;
+        opacity: 0.3;
+    }
+    100%{
+        top: 120px;
+        left: 155px;
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+}

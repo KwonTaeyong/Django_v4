@@ -1,0 +1,75 @@
+{% load date_tags %}
+<div id="cont_conf"><!--완료 된 계약-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone search_area">
+            <form class="form">
+                <table class="search_table">
+                    <tr>
+                        <td class="search_box">
+                            <label class="search_label">계약 번호</label>
+                            <input type="text" class="search_input" id="confcont_contid">
+                        </td>
+                        <td class="search_box">
+                            <label class="search_label">계약명</label>
+                            <input type="text" class="search_input" id="confcont_contnm">
+                        </td>
+                        <td class="search_box date_line">
+                            <label class="search_label">계약일</label>
+                            <input type="date" class="search_input" id="confcont_contstdt" value="{% week_ago 4 %}">
+                            <span class="date_wave">~</span>
+                            <input type="date" class="search_input" id="confcont_conteddt" value="{% today %}">
+                        </td>
+                        <td class="search_box">
+                            <button type="button" class="btn btn_basic" style="padding: 0; width: 30px"
+                                    id="search_confcont">
+                                <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="zone">
+            <div>
+                <div>
+                    <div id="gridtable_confcont"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_confcont = gridform_confcont("gridtable_confcont")
+        setgrid(grid_confcont)
+
+        $("#search_confcont").on("click", function () {
+            read_grid_confcont()
+        })
+
+        $(document).ready(function () {
+            read_grid_confcont()
+        })
+
+        function read_grid_confcont() {
+            const obj = {};
+            obj["action"] = "get_confcont"
+            obj["confcont_contid"] = $("#confcont_contid").val()
+            obj["confcont_contnm"] = $("#confcont_contnm").val()
+            obj["confcont_contstdt"] = $("#confcont_contstdt").val()
+            obj["confcont_conteddt"] = $("#confcont_conteddt").val()
+            grid_confcont.readData(1, obj, false)
+        }
+
+        grid_confcont.on('click', ev => {
+            if (ev.targetType !== 'cell') {
+                return false;
+            }
+            let CONT_ID = grid_confcont.getRow(ev.rowKey).CONT_ID
+            let params = {
+                "CONT_ID": CONT_ID,
+            }
+            show_modal("get_confcont", params)
+        })
+    </script>
+</div>

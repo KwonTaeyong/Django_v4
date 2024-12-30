@@ -1,0 +1,166 @@
+{% load date_tags %}
+<div id="odreq_list"><!--구매요청현황-->
+    <div class="con_title">
+        <h3>구매요청현황</h3>
+    </div>
+    <div class="con_box">
+        <div class="zone search_area">
+            <form class="form">
+                <table class="search_table">
+                    <tr>
+                        <td class="search_box">
+                            <label class="search_label">요청 상태</label>
+                            <select class="search_input" id="odreq_sta_12">
+                                <option selected></option>
+                                <option value="001">접수</option>
+                                <option value="002">승인</option>
+                                <option value="003">반려</option>
+                            </select>
+                        </td>
+                        <td class="search_box date_line">
+                            <label class="search_label">요청일</label>
+                            <input type="date" class="search_input" id="st_dt_12" value="{% week_ago 4 %}">
+                            <label class="date_wave">~</label>
+                            <input type="date" class="search_input" id="ed_dt_12" value="{% today %}">
+                        </td>
+                        <td class="search_box">
+                            <button type="button" class="btn btn_basic" style="padding: 0; width: 30px"
+                                    id="search_12">
+                                <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="zone">
+            <div>
+                <div class="comp_line flex2">
+                    <div>
+                        <button type="button" class="btn btn_basic" id="acc_12">승인</button>
+                        <button type="button" class="btn btn_gray" id="rej_12">반려</button>
+                        <button type="button" class="btn btn_gray" id="del_12">요청 회수</button>
+                    </div>
+                </div>
+                <div id="gridtable_12"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_12 = gridform_12("gridtable_12")
+        setgrid(grid_12, 1)
+
+        $(document).ready(function () {
+            read_grid_12()
+        })
+
+        $("#search_12").on("click", function () {
+            read_grid_12()
+        })
+
+        function read_grid_12() {
+            const obj = {};
+            obj["action"] = "get_odreq"
+            obj["odreq_sta"] = $("#odreq_sta_12").val()
+            obj["st_dt"] = $("#st_dt_12").val()
+            obj["ed_dt"] = $("#ed_dt_12").val()
+            grid_12.readData(1, obj, false)
+        }
+
+        $("#acc_12").on("click", function () {
+            let checkedRows = grid_12.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 요청이 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 요청을 승인 하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        action: "acc_odreq",
+                        checkedRows: checkedRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("선택한 요청을 승인 하였습니다.")
+                            read_grid_12()
+                        } else {
+                            mpop.error("실패하였습니다.")
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+        $("#rej_12").on("click", function () {
+            let checkedRows = grid_12.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 요청이 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 요청을 반려 하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        action: "rej_odreq",
+                        checkedRows: checkedRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("선택한 요청을 반려 하였습니다.")
+                            read_grid_12()
+                        } else {
+                            mpop.error("실패하였습니다.")
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+
+        $("#del_12").on("click", function () {
+            let checkedRows = grid_12.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 요청이 없습니다.")
+                return false;
+            }
+            let con_chk = false
+            $.each(checkedRows, function (i, row) {
+                if (row["ODREQ_STA"] !== '001') {
+                    con_chk = true
+                }
+            })
+            if (con_chk) {
+                mpop.error("승인 혹은 반려 된 요청은 회수 할 수 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 요청을 회수 하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        action: "del_odreq",
+                        checkedRows: checkedRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("선택한 요청을 회수 하였습니다.")
+                            read_grid_12()
+                        } else {
+                            mpop.error(response["message"])
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        mpop.error("네트워크 오류로 실패하였습니다.");
+                    }
+                });
+            })
+        })
+    </script>
+</div>

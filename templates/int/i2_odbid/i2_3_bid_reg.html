@@ -1,0 +1,164 @@
+{% load date_tags %}
+{% load static %}
+<div id="bid_reg"><!--구매입찰등록-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="zone">
+        <table class="table" style="width: 100%">
+            <tr>
+                <td>
+                    <div class="input_box">
+                        <span class="input_title">구매구분</span>
+                        <select class="input" name="NOTI_TP" id="NOTI_TP_13">
+                            <option value="001">공개견적</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="input_box">
+                        <span class="input_title">견적 마감일</span>
+                        <div class="date_line">
+                            <input type="date" name="NOTI_DD" id="NOTI_DD_13" class="input" min="{% today %}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="input_box">
+                        <span class="input_title">견적 요청명</span>
+                        <input type="text" name="NOTI_NM" id="NOTI_NM_13" class="input" style="width: 100%">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="vertical-align: bottom">
+                    <span class="input_title" style="float: left">주요 요청 사항</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                        <textarea class="input" name="NOTI_INFO" id="NOTI_INFO_13"
+                                  style="resize: none; width: 100%; height: 200px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="input_box">
+                        <span class="input_title">파일첨부</span>
+                        <div class="input_file_box">
+                            <input class="input_file_name" placeholder="첨부파일">
+                            <input type="file" id="input_file">
+                            <label class="btn btn_basic" for="input_file">파일찾기</label>
+                            <button type="button" class="btn btn_gray input_file_delete">파일삭제</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="comp_line flex2">
+            <div>
+                <button type="button" class="btn btn_basic" id="get_acreq_13"
+                        style="padding-right: 5px">
+                    품목 추가<i
+                        class="fa-solid fa-magnifying-glass fa-sm" style="margin-left: 3px"></i></button>
+                <button type="button" class="btn btn_gray" id="del_13">삭제</button>
+            </div>
+            <div style="color: gray; font-size: 12px; margin-top: 12px;">
+                * 단가 정보는 공급업체에 공개되지 않습니다.
+            </div>
+        </div>
+        <div id="gridtable_13"></div>
+        <div class="comp_line flex1">
+            <div>
+                <button type="button" class="btn btn_gray" id="reset_13">초기화</button>
+                <button type="button" class="btn btn_basic" id="reg_13">구매 등록</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_13 = gridform_13("gridtable_13")
+        setgrid(grid_13, 1)
+
+        $("#get_acreq_13").on("click", function () {
+            show_modal("get_acreq")
+        })
+
+        $("#del_13").on("click", function () {
+            let checkedRows = grid_13.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 행이 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 행을 삭제 하시겠습니까?", function () {
+                $.each(checkedRows, function (i, row) {
+                    let rowKey = row.rowKey
+                    grid_13.removeRow(rowKey)
+                })
+            })
+        })
+
+        $("#reset_13").on("click", function () {
+            mpop.confirm("작성 내용을 초기화 하시겠습니까?", function () {
+                reset_13()
+            });
+        })
+
+        function reset_13() {
+            $("#NOTI_TP_13").val("001")
+            $("#NOTI_DD_13").val("")
+            $("#NOTI_NM_13").val("")
+            $("#NOTI_INFO_13").val("")
+            grid_13.resetData([])
+        }
+
+        $("#reg_13").on("click", function () {
+            let $NOTI_TP = $("#NOTI_TP_13")
+            let $NOTI_DD = $("#NOTI_DD_13")
+            let $NOTI_NM = $("#NOTI_NM_13")
+            let $NOTI_INFO = $("#NOTI_INFO_13")
+
+            if (!$NOTI_DD.val()) {
+                $NOTI_DD.focus()
+                return false;
+            }
+            if (!$NOTI_NM.val()) {
+                $NOTI_NM.focus()
+                return false;
+            }
+
+            let allRows = grid_13.getData()
+            if (!allRows.length) {
+                mpop.error("추가 한 품목이 없습니다.")
+                return false;
+            }
+            // 요청 등록 ajax
+            mpop.confirm("견적 요청을 등록하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        action: "ins_odbid",
+                        NOTI_TP: $NOTI_TP.val(),
+                        NOTI_DD: $NOTI_DD.val(),
+                        NOTI_NM: $NOTI_NM.val(),
+                        NOTI_INFO: $NOTI_INFO.val(),
+                        allRows: allRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("견적 요청을 등록하였습니다.")
+                            reset_13()
+                        } else {
+                            mpop.error(response["message"])
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+    </script>
+</div>

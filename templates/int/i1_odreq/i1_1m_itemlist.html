@@ -1,0 +1,60 @@
+<div class="side_modal-content" style="width: 1000px;right: -1000px;">
+    <div class="comp_line flex2">
+        <span class="sub_title">품목 검색</span>
+        <span class="side_close" onclick="hide_modal()">
+                <i class="fa-solid fa-xmark fa-xl"></i>
+            </span>
+    </div>
+    <div class="comp_line flex2">
+        <div class="search_box">
+            <input type="text" class="search_input" id="item_getitem">
+            <button type="button" class="btn search_btn" id="search_getitem">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <button type="button" class="btn btn_basic" id="add_getitem">추가</button>
+    </div>
+    <div id="gridtable_getitem"></div>
+</div>
+
+<script type="text/javascript">
+    grid_getitem = gridform_getitem("gridtable_getitem")
+    setgrid(grid_getitem, 1,1)
+
+    setTimeout(function () {
+        $('#item_getitem').focus()
+    }, 200)
+
+    $("#search_getitem").on('click', function () {
+        const obj = {};
+        obj["action"] = "get_item_modal"
+        obj["item_nm"] = $("#item_getitem").val()
+        grid_getitem.readData(1, obj, false)
+    })
+
+    $("#add_getitem").on('click', function () {
+        let checkedRows = grid_getitem.getCheckedRows()
+        if (!checkedRows.length) {
+            mpop.error("선택 한 품목이 없습니다.")
+            return false;
+        }
+        $.each(checkedRows, function (i, row) {
+            const rows_odreq_reg = grid_odreq_reg.findRows(row_odreq_reg => row_odreq_reg.ITEM_ID === row['ITEM_ID'])
+            if (rows_odreq_reg.length > 0) {
+                mpop.error("이미 추가 된 품목입니다.")
+            } else {
+                const obj = {}
+                obj["ITEM_ID"] = row['ITEM_ID']
+                obj["ITEM_CD"] = row['ITEM_CD']
+                obj["ITEM_NM"] = row['ITEM_NM']
+                grid_odreq_reg.appendRow(obj)
+            }
+        })
+    })
+
+    $('#item_getitem').keydown(function (event) {
+        if (event.which === 13) {
+            $("#search_getitem").click()
+        }
+    });
+</script>

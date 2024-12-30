@@ -1,0 +1,39 @@
+{% load static %}
+<nav>
+    <a class="nav_log" href="{% url 'common:logout' %}">
+        <i class="fa-solid fa-circle-user fa-2xl"></i>
+        <span>{{ user.username }}</span>
+    </a>
+    <a class="nav_int" href="{% url 'int:index' %}"><i class="fa-solid fa-link"></i>수요Web 이동하기</a>
+    <ul class="main_menu">
+        <li>
+            <a href="{% url 'ext:menu1_1' %}">견적 요청/공고</a>
+            <ul class="sub_menu">
+                <li><a href="{% url 'ext:menu1_1' %}">전체 목록</a></li>
+                <li><a href="{% url 'ext:menu1_3' %}">지명 견적 요청</a></li>
+                <li><a href="{% url 'ext:menu1_2' %}">내 관심 공고</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'ext:menu2_1' %}">견적 관리</a>
+            <ul class="sub_menu">
+                <li><a href="{% url 'ext:menu2_1' %}">보낸 견적</a></li>
+                <li><a href="{% url 'ext:menu2_2' %}">승인 목록</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'ext:menu3_1' %}">계약 관리</a>
+            <ul class="sub_menu">
+                <li><a href="{% url 'ext:menu3_1' %}">진행 중 계약</a></li>
+                <li><a href="{% url 'ext:menu3_2' %}">완료 된 계약</a></li>
+            </ul>
+        </li>
+{#        <li>#}
+{#            <a href="{% url 'ext:menu4_1' %}">설정</a>#}
+{#            <ul class="sub_menu">#}
+{#                <li><a href="{% url 'ext:menu4_1' %}">회사 정보</a></li>#}
+{#            </ul>#}
+{#        </li>#}
+    </ul>
+    <div class="bgtest"></div>
+</nav>

@@ -1,0 +1,287 @@
+
+/*---------------콘텐츠메인영역-----------------*/
+main {
+    width: 100%;
+    margin: auto;
+    height: 100vh;
+    box-sizing: border-box;
+    position: relative;
+    padding-top: 60px;
+}
+
+.main_wrap {
+    width: 1200px;
+    min-height: 100%;
+    margin: auto;
+}
+
+.main_title {
+    padding: 10px 20px 0px 20px;
+    box-sizing: border-box;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.main_title::before{
+    content: "\f04b";
+    font: var(--fa-font-solid);
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    /*color: #FDB827;*/
+    color: #CABFAB;
+}
+
+.main_content {
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+.main_content > .main_contents{
+    width: 100%;
+    padding: 15px 20px 20px 20px;
+    box-sizing: border-box;
+    /*background-color: #F9F9F9;*/
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.search_area{
+    margin-bottom: 15px;
+    width: 100%;
+    display: inline-flex
+}
+.search_area>div:first-child{
+    /*인풋들*/
+    width: calc(100% - 50px);
+}
+.search_area>div:last-child{
+    /*우측하단 검색버튼*/
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.sub_title{
+    position: relative;
+    left: 17px;
+    box-sizing: border-box;
+    width: max-content;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+}
+.sub_title::before{
+    content: "";
+    position: absolute;
+    left: -19px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    /*background-image: radial-gradient(#ffffff, #f2c33f, #ebb00c);*/
+    background-image: radial-gradient(#ffffff, #DFD8C8, #CABFAB);
+}
+/*-------------------인풋---------------------*/
+.input {
+    display: inline-block;
+    border: 1px solid #858382;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 0 7px;
+    font-size: 15px;
+}
+a.input{
+    line-height: 30px;
+    padding: 0 15px 0 10px;
+}
+
+input[type="date"].input {
+    min-width: 130px;
+}
+
+.input:focus {
+    outline: none;
+    /*background-color: #ffffe8;*/
+    background-color: rgba(169, 223, 252, 0.3);
+}
+
+.input_box {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    border: 1px solid #858382;
+    margin: 10px 0;
+}
+
+.input_box > .input_title {
+    /*background-color: #FFD8A9;*/
+    background-color: #DFD8C8;
+    line-height: 30px;
+    padding: 0 10px;
+    border-right: 1px solid #858382;
+    box-sizing: border-box;
+    white-space: nowrap;
+    font-size: 15px;
+    min-width: 120px;
+    width: 120px;
+    text-align: center;
+}
+.input_title.file{
+    min-width: max-content;
+    padding: 0 15px;
+}
+.input_title.file+a{
+    min-width: max-content;
+}
+
+.input_box .input {
+    width: 50%;
+    flex-grow: 1;
+    border-radius: 0;
+    border: none;
+}
+
+input[readonly] {
+    background-color: #f3f3f3;
+}
+
+/*-------------------------인풋 (타입:파일)-----------------------*/
+.input_file_box {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 30px;
+    margin: 3px 5px;
+}
+
+.input_file_box > .input_file_name {
+    /*파일 첨부-파일 명(인풋대체)*/
+}
+
+.input_file_box label {
+    /*파일 첨부-파일찾기*/
+    cursor: pointer;
+}
+
+.input_file_box input[type="file"] {
+    /*파일 첨부-기존인풋(숨김)*/
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+.input_file_box > .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    border-right: none;
+}
+
+/*-------------------버튼---------------------*/
+.btn {
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #858382;
+    cursor: pointer;
+    padding: 0 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    /*background-color: #F1A661;*/
+    background-color: #C8B6A6;
+    color: #151515;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.btn_search{
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+}
+.btn:hover{
+    /*background-color: #E38B29;*/
+    background-color: #8D7B68;
+    color: #fff;
+}
+
+/*-------------------라인위치---------------------*/
+.comp_line{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.flex1{
+    justify-content: center;
+}
+.flex2{
+    justify-content: space-between;
+}
+.flex3{
+    justify-content: flex-start;
+}
+.flex4{
+    justify-content: flex-end;
+}
+.comp_line > div{
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comp_line > div > button{
+    margin: 0 3px;
+}
+.rlt{
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-start;
+}
+.inner_btn{
+    /*인풋안에 검색버튼*/
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.form.office{
+    width: 550px;
+    margin: auto;
+}
+
+.table > tbody > tr > td{
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.table > tbody > tr > td > .input_box{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/*-------------------그리드---------------------*/
+.tui-grid-cell.tui-grid-cell-header.tui-grid-cell-row-header{
+    /*background-color: #FFC97C;*/
+    background-color: #f2f0ed;
+
+}

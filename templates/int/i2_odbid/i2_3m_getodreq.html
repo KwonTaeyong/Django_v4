@@ -1,0 +1,56 @@
+<div class="side_modal-content" style="width: 800px;right: -800px;">
+    <div class="comp_line flex2">
+        <span class="sub_title">구매 요청 승인 목록</span>
+        <span class="side_close" onclick="hide_modal()">
+                <i class="fa-solid fa-xmark fa-xl"></i>
+            </span>
+    </div>
+    <div class="comp_line flex2">
+        <div class="input_box">
+            <input type="text" class="input" id="item_getacreq">
+            <button type="button" class="btn search_btn" id="search_getacreq">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+        <button type="button" class="btn btn_basic" id="add_getacreq">추가</button>
+    </div>
+    <div id="gridtable_getacreq"></div>
+</div>
+
+<script type="text/javascript">
+    grid_getacreq = gridform_getacreq("gridtable_getacreq")
+    setgrid(grid_getacreq, 1,1)
+
+    setTimeout(function () {
+        $('#item_getacreq').focus()
+    }, 400)
+
+    $("#search_getacreq").on('click', function () {
+        const obj = {};
+        obj["action"] = "get_acreq_modal"
+        obj["item_nm"] = $("#item_getacreq").val()
+        grid_getacreq.readData(1, obj, false)
+    })
+
+    $("#add_getacreq").on('click', function () {
+        let checkedRows = grid_getacreq.getCheckedRows()
+        if (!checkedRows.length) {
+            mpop.error("선택 한 품목이 없습니다.")
+            return false;
+        }
+        $.each(checkedRows, function (i, row) {
+            const grid_13_ODREQ_ID = grid_13.getColumnValues("ODREQ_ID")
+            if (grid_13_ODREQ_ID.includes(row['ODREQ_ID'])) {
+                mpop.error("이미 포함 된 품목은 추가 할 수 없습니다.")
+                return true;
+            }
+            const obj = {}
+            obj["ODREQ_ID"] = row['ODREQ_ID']
+            obj["ITEM_ID"] = row['ITEM_ID']
+            obj["ITEM_NM"] = row['ITEM_NM']
+            obj["ITEM_QT"] = row['ITEM_QT']
+            obj["RMK"] = row['RMK']
+            grid_13.appendRow(obj)
+        })
+    })
+</script>

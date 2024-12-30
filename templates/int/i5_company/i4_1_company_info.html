@@ -1,0 +1,174 @@
+<div id="company_info"><!--회사정보-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone" style="width: 700px; min-height: 500px;">
+            <div class="comp_line" style="justify-content: flex-end">
+                <button class="btn btn_basic" id="save_companyInfo">저장</button>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">회사ID</span>
+                            <input type="text" class="input" value="{{ companyinfo.COM_ID }}" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">대표자명<span class="req_point"></span></span>
+                            <input type="text" class="input" value="{{ companyinfo.CEO_NM }}" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">회사명<span class="req_point"></span></span>
+                            <input type="text" class="input" value="{{ companyinfo.COM_NM }}" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">회사명(영)<span class="req_point"></span></span>
+                            <input type="text" class="input" value="{{ companyinfo.COM_ENM }}" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">사업구분<span class="req_point"></span></span>
+                            <input type="text" class="input" value="개인사업자" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">등록번호<span class="req_point"></span></span>
+                            <input type="text" class="input" value="{{ companyinfo.COM_NO }}" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">등록증</span>
+                            <input type="text" class="input" value="" readonly>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">설립일</span>
+                            <input type="text" class="input" value="{{ companyinfo.EDATE }}" readonly>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">전화번호</span>
+                            <input type="text" class="input" id="companyInfo_PHONE" value="{{ companyinfo.PHONE }}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">이메일</span>
+                            <input type="text" class="input" id="companyInfo_EMAIL" value="{{ companyinfo.EMAIL }}">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input_box">
+                            <span class="input_title">우편번호</span>
+                            <span class="rlt">
+                                    <input type="text" class="input" id="companyInfo_ZIPCODE"
+                                           value="{{ companyinfo.ZIPCODE }}">
+                                    <button type="button" class="inner_btn" id="companyInfo_searchAdd">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="input_box">
+                            <span class="input_title">주소</span>
+                            <input type="text" class="input" id="companyInfo_ADRESS1" value="{{ companyinfo.ADRESS1 }}"
+                                   style="width: 400px">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="input_box">
+                            <span class="input_title">상세주소</span>
+                            <input type="text" class="input" id="companyInfo_ADRESS2" value="{{ companyinfo.ADRESS2 }}"
+                                   style="width: 400px">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        $("#save_companyInfo").on("click", function () {
+            let PHONE = $("#companyInfo_PHONE").val()
+            let EMAIL = $("#companyInfo_EMAIL").val()
+            let ZIPCODE = $("#companyInfo_ZIPCODE").val()
+            let ADRESS1 = $("#companyInfo_ADRESS1").val()
+            let ADRESS2 = $("#companyInfo_ADRESS2").val()
+            mpop.confirm("저장하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        "action": "save_companyInfo",
+                        "PHONE": PHONE,
+                        "EMAIL": EMAIL,
+                        "ZIPCODE": ZIPCODE,
+                        "ADRESS1": ADRESS1,
+                        "ADRESS2": ADRESS2,
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("저장하였습니다.")
+                        } else {
+                            mpop.error(response["message"])
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                        mpop.error("네트워크 오류로 실패하였습니다.");
+                    }
+                })
+            })
+        })
+
+        $("#companyInfo_searchAdd").on("click", function () {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    var addr = ''; // 주소 변수
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+                    console.log(data)
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    $("#companyInfo_ZIPCODE").val(data.zonecode)
+                    $("#companyInfo_ADRESS1").val(addr)
+                    // 커서를 상세주소 필드로 이동한다.
+                    $("#companyInfo_ADRESS2").focus();
+                }
+            }).open();
+        })
+    </script>
+</div>

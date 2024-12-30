@@ -1,0 +1,216 @@
+/*----------반응형----------*/
+@media screen and (max-width: 700px) {
+    header {
+        min-width: 320px;
+        border-bottom: none;
+        background-color: #F5EFE6;
+    }
+    main {
+        background-color: #fff;
+    }
+    .main_menu {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .main_menu > li {
+        width: 25%;
+    }
+
+    .main_wrap {
+        width: 100%;
+        min-height: 100%;
+        min-width: 320px;
+        background-color: #fff;
+    }
+
+    .main_content {
+        padding: 0px 0px;
+    }
+
+    .main_content > .main_contents{
+        padding: 10px 5px 10px 5px;
+        border-radius: 0px;
+        margin-bottom: 5px;
+        border-bottom: 20px solid #fafafa;
+    }
+
+    .search_area{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search_area>div:first-child{
+        /*인풋들*/
+        width: 100%;
+    }
+
+    .search_area>div:last-child{
+        /*우측하단 검색버튼*/
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .main_contents.office{
+
+    }
+    .form.office{
+        width: 100%;
+    }
+    .form.office > .table td{
+        display: inline-flex;
+        width: 100%;
+    }
+    .input_box.file{
+        width: 95%;
+    }
+    .input_box.date input[type="date"].input{
+        min-width: 100px;
+        width: 107.5px;
+        padding: 0;
+    }
+    .header_right{
+        display: none;
+    }
+    /*----------모바일 메뉴----------*/
+    .three_btn{
+        display: block;
+        z-index: 20;
+    }
+    nav {
+        top: 0px;
+        right: -100%;
+        /*display: none;*/
+        background-color: #F5EFE6;
+        width: 100%;
+        height: 100vh;
+        z-index: 10;
+        padding-top: 60px;
+        display: block;
+        opacity: 0;
+        transition: 0.5s;
+    }
+    nav.on{
+        right: 0px;
+        opacity: 1;
+    }
+    .main_menu > li::after {
+        content: "";
+        background-color: #826F66;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 41px;
+        left: 0px;
+        transition: 0.4s;
+        z-index: 10;
+    }
+    .bgtest{
+        display: none;
+    }
+    .main_menu{
+        display: block;
+    }
+    .main_menu > li{
+        width: 100%;
+        display: block;
+        height: auto;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .main_menu > li > a{
+        font-size: 24px;
+        line-height: 45px;
+        background-color: #826F66;
+        width: 80%;
+        border-radius: 30px;
+        color: #fff;
+    }
+    .sub_menu{
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        height: auto;
+    }
+    .sub_menu > li{
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .sub_menu > li:first-child {
+        margin-top: 5px;
+    }
+    .sub_menu > li:last-child {
+        margin-bottom: 5px;
+    }
+    .sub_menu > li > a{
+        font-size: 20px;
+        line-height: 40px;
+    }
+    .main_menu:hover .sub_menu {
+        height: auto;
+        transition: 0.2s;
+    }
+
+    .header_left > a:last-child{
+        margin-top: 5px;
+        margin-left: 10px;
+        width: 90px;
+        height: 30px;
+        line-height: 40px;
+        text-align: center;
+        background-color: #afbcc7;
+        border-radius: 20px;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .nav_log{
+        display: flex;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        /*border: 1px solid red;*/
+        box-sizing: border-box;
+        width: 190px;
+        height: 40px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .nav_log > i{
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: #3C2A21;
+    }
+    .nav_log > span{
+        padding-left: 5px;
+        font-size: 22px;
+        color: #3C2A21;
+    }
+    .header_left > a:last-child{
+        display: none;
+    }
+    .nav_int{
+        display: block;
+        line-height: 45px;
+        background-color: #E0C097;
+        width: 80%;
+        border-radius: 30px;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .nav_int > i{
+        margin-right: 10px;
+    }
+}

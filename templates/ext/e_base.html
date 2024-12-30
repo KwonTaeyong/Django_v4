@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>forB2B</title>
+    <!--파비콘-->
+    <link rel="shortcut icon" href="{% static 'common/img/favicon.ico' %}"/>
+    <!-- 폰트어썸 -->
+    <script src="https://kit.fontawesome.com/e1807ed9b8.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <!-- 제이쿼리 -->
+    <script src="{% static 'common/js/jquery-3.6.0.min.js' %}"></script>
+    <!-- xlsx -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <!-- 토스트그리드 -->
+    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+    <!-- 토스트그리드 페이지네이션 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css"/>
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <!-- 토스트그리드 데이트피커 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css"/>
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+    <!-- 토스트그리드 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css"/>
+    <script src="{% static 'common/js/tui-grid_4.21.16.js' %}"></script>
+    <!-- js -->
+    <script src="{% static 'ext/js/e_gridform.js' %}"></script>
+    <script src="{% static 'ext/js/ajaxset.js' %}"></script>
+    <!-- CSS -->
+    <link href="{% static 'ext/e_css/e_style.css' %}?ver=1" rel="stylesheet"/>
+    <link href="{% static 'ext/e_css/e_content.css' %}?ver=1" rel="stylesheet"/>
+    <link href="{% static 'ext/e_css/e_layer.css' %}?ver=1" rel="stylesheet"/>
+    <link href="{% static 'ext/e_css/e_grid.css' %}" rel="stylesheet"/>
+    <link href="{% static 'ext/e_css/e_media.css' %}?ver=1" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="header_top">
+        <div class="header_left">
+            <a href="/ext/"><img src="{% static 'ext/e_img/e_logo_or.png' %}" height="40px"></a>
+            <a href="{% url 'int:index' %}">수요Web</a>
+        </div>
+        <div class="header_right">
+            <a href="{% url 'common:logout' %}" tabindex="-1">
+                <span>{{ user.username }}</span>
+                <i class="fa-solid fa-circle-user fa-xl"></i>
+            </a>
+        </div>
+    </div>
+    <label for="hbg_btn" class="three_btn">
+        <input type="checkbox" id="hbg_btn">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </label>
+
+    {% include "ext/e_navbar.html" %}
+</header>
+
+<main>
+    <div>
+        {% include "ext/e_comp.html" %}
+    </div>
+    <div class="main_wrap">
+        {% block content %}
+        {% endblock %}
+        {% block script %}
+        {% endblock %}
+    </div>
+</main>
+<script>
+    $("#hbg_btn").on("change", function () {
+        $("nav").toggleClass("on")
+    })
+</script>
+</body>
+</html>

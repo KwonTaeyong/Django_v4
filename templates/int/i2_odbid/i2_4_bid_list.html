@@ -1,0 +1,84 @@
+{% load date_tags %}
+<div id="bid_list"><!--구매입찰현황-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone search_area">
+            <form class="form">
+                <table class="search_table" style="width: 80%">
+                    <tr>
+                        <td class="search_box">
+                            <span class="search_label">구매 구분</span>
+                            <select class="search_input" id="noti_tp_141">
+                                <option value="" selected>전체</option>
+                                <option value="001">공개 견적</option>
+                            </select>
+                        </td>
+                        <td class="search_box">
+                            <span class="search_label">구매 번호</span>
+                            <input type="text" class="search_input" id="odbid_id_141">
+                        </td>
+                        <td class="search_box">
+                            <span class="search_label">견적 요청명</span>
+                            <input type="text" class="search_input" id="noti_nm_141">
+                        </td>
+                        <td class="search_box date_line">
+                            <span class="search_label">등록일</span>
+                            <input type="date" class="search_input" id="st_dt_141" value="{% week_ago 4 %}">
+                            <span class="date_wave">~</span>
+                            <input type="date" class="search_input" id="ed_dt_141" value="{% today %}">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn_basic" style="padding: 0; width: 30px" id="search_141">
+                                <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="zone">
+            <div>
+                <div class="comp_line">
+                </div>
+                <div>
+                    <div id="gridtable_141"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_141 = gridform_141("gridtable_141")
+        setgrid(grid_141)
+
+        $(document).ready(function () {
+            read_grid_141()
+        })
+
+        $("#search_141").on("click", function () {
+            read_grid_141()
+        })
+
+        function read_grid_141() {
+            const obj = {};
+            obj["action"] = "get_odbid"
+            obj["noti_tp"] = $("#noti_tp_141").val()
+            obj["st_dt"] = $("#st_dt_141").val()
+            obj["ed_dt"] = $("#ed_dt_141").val()
+            obj["odbid_id"] = $("#odbid_id_141").val()
+            obj["noti_nm"] = $("#noti_nm_141").val()
+            grid_141.readData(1, obj, false)
+        }
+
+        grid_141.on('click', ev => {
+            if (ev.targetType !== 'cell') {
+                return false;
+            }
+            let ODBID_ID = grid_141.getRow(ev.rowKey).ODBID_ID
+            let params = {
+                "ODBID_ID": ODBID_ID
+            }
+            show_modal("get_odbid", params)
+        })
+    </script>
+</div>

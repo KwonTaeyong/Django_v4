@@ -1,0 +1,114 @@
+{% extends "ext/e_base.html" %}
+{% load date_tags %}
+{% block content %}
+    <div>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <span class="sub_title">보낸 견적 상세</span>
+            <form>
+                <div class="input_box">
+                    <span class="input_title">공고구분</span>
+                    <input type="text" class="input" value="공개견적" disabled/>
+                </div>
+                <div class="input_box date">
+                    <label class="input_title">마감일</label>
+                    <input type="date" class="input" value="{{ NOTI_DD }}" disabled>
+                </div>
+                <div class="input_box" style="margin-bottom: 30px;">
+                    <span class="input_title">견적 요청명</span>
+                    <input type="text" class="input" value="{{ NOTI_NM }}" disabled>
+                </div>
+                <textarea class="input" style="resize: none; width: 100%; height: 200px"
+                          disabled>{{ NOTI_INFO }}</textarea>
+                <div class="input_box file" style="margin-bottom: 30px;">
+                    <label class="input_title file">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </label>
+                    <a href="#" class="input"></a>
+                </div>
+                <div id="table_offerdetail" style="position: relative; z-index: 0;"></div>
+            </form>
+        </div>
+
+        <div class="comp_line flex1">
+            <div>
+                <button class="btn" id="edit_offer">견적 수정</button>
+            </div>
+            <div>
+                <button class="btn" id="backtolist">목록</button>
+            </div>
+        </div>
+    </div>
+    <input id="offerdetail_odbidid" value="{{ ODBID_ID }}" hidden>
+{% endblock content %}
+{% block script %}
+    <script>
+        grid_offerdetail = gridform_offerdetail("table_offerdetail")
+        setgrid(grid_offerdetail)
+
+        $(document).ready(function () {
+            read_grid_offerdetail()
+        })
+
+        function read_grid_offerdetail() {
+            const obj = {};
+            obj["action"] = "get_offerdetail"
+            obj["odbid_id"] = $("#offerdetail_odbidid").val()
+            grid_offerdetail.readData(1, obj, false)
+        }
+
+        $("#edit_offer").on("click", function () {
+            let dataList = grid_offerdetail.getData()
+            // 필수값 확인
+            let allRowsHaveRequiredValue = true;
+            for (let i = 0; i < dataList.length; i++) {
+                const data = dataList[i];
+                if (!data.OFFER_AMU || data.OFFER_AMU.trim() === "") {
+                    alert("공급 단가를 모두 입력 해주세요.")
+                    grid_offerdetail.startEditing(data["rowKey"], "OFFER_AMU")
+                    allRowsHaveRequiredValue = false;
+                    break;
+                }
+            }
+            if (!allRowsHaveRequiredValue) {
+                return false;
+            }
+
+            const modifiedRows = grid_offerdetail.getModifiedRows()
+            const hasChanges =
+                modifiedRows.createdRows.length > 0 ||
+                modifiedRows.updatedRows.length > 0 ||
+                modifiedRows.deletedRows.length > 0;
+            if (!hasChanges) {
+                alert("변경사항이 없습니다.")
+                return false;
+            }
+            if (!confirm("해당 내용으로 견적을 수정하시겠습니까?")) {
+                return false;
+            }
+            $.ajax({
+                url: "{% url 'ext:actapi' %}",
+                type: 'POST',
+                data: {
+                    "action": "edit_offer",
+                    "modifiedRows": modifiedRows
+                },
+                success: function (response) {
+                    if (response["state"]) {
+                        alert(response["message"])
+                    } else {
+                        alert(response["message"])
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        })
+
+        $("#backtolist").on("click", function () {
+            window.history.go(-1);
+        })
+    </script>
+{% endblock %}

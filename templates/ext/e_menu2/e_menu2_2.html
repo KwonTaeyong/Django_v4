@@ -1,0 +1,34 @@
+{% extends "ext/e_base.html" %}
+{% block content %}
+    <div class="main_title">
+        <h3>견적 승인 목록</h3>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <div class="search_area">
+            </div>
+            <div id="gridtable_accoffer" style="position: relative; z-index: 0;"></div>
+        </div>
+    </div>
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        grid_accoffer = gridform_accoffer("gridtable_accoffer")
+        setgrid(grid_accoffer)
+
+        $(document).ready(function () {
+            read_grid_accoffer()
+        })
+
+        function read_grid_accoffer() {
+            const obj = {};
+            obj["action"] = "get_accoffer"
+            grid_accoffer.readData(1, obj, false)
+        }
+
+        function inqDetail(rowKey) {
+            let odbid_id = grid_accoffer.getRow(rowKey).ODBID_ID
+            location.href = '{% url "ext:offerdetail" %}?odbidid='+odbid_id
+        }
+    </script>
+{% endblock %}

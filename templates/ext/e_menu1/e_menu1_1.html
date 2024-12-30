@@ -1,0 +1,68 @@
+{% extends "ext/e_base.html" %}
+{% load date_tags %}
+{% block content %}
+    <div class="main_title">
+        <h3>전체 목록</h3>
+    </div>
+    <div class="main_content">
+        <div class="main_contents">
+            <div class="search_area">
+                <div>
+                    <div class="input_box">
+                        <label class="input_title">수요업체명</label>
+                        <input type="text" id="allNoti_companyName" class="input">
+                    </div>
+                    <div class="input_box">
+                        <label class="input_title">요청/공고명</label>
+                        <input type="text" id="allNoti_title" class="input">
+                    </div>
+                    <div class="input_box date">
+                        <label class="input_title">공고일자</label>
+                        <input type="date" id="allNoti_stdt" class="input" value="{% week_ago 4 %}">
+                        <input type="date" id="allNoti_eddt" class="input" value="{% today %}">
+                    </div>
+                </div>
+                <div>
+                    <button type="button" id="allNoti_searchBtn" class="btn btn_search"><i
+                            class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                </div>
+            </div>
+            <div id="gridtable_allNoti" style="position: relative; z-index: 0;"></div>
+        </div>
+    </div>
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        $(".test1").on("click", function () {
+            $(".loading").css("display", "flex")
+            setTimeout(function () {
+                $(".loading").css("display", "none")
+            }, 1500)
+        });
+        grid_allNoti = gridform_allNoti("gridtable_allNoti")
+        setgrid(grid_allNoti)
+
+        $(document).ready(function () {
+            read_grid_allNoti()
+        })
+
+        $("#allNoti_searchBtn").on("click", function () {
+            read_grid_allNoti()
+        })
+
+        function read_grid_allNoti() {
+            const obj = {};
+            obj["action"] = "get_allNoti"
+            obj["companyName"] = $("#allNoti_companyName").val()
+            obj["title"] = $("#allNoti_title").val()
+            obj["st_dt"] = $("#allNoti_stdt").val()
+            obj["ed_dt"] = $("#allNoti_eddt").val()
+            grid_allNoti.readData(1, obj, false)
+        }
+
+        function inqDetail(rowKey) {
+            let odbid_id = grid_allNoti.getRow(rowKey).ODBID_ID
+            location.href = '{% url "ext:notidetail" %}?odbidid='+odbid_id
+        }
+    </script>
+{% endblock %}

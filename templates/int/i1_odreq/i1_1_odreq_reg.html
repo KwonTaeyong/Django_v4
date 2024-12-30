@@ -1,0 +1,91 @@
+{% load static %}
+<div id="odreq_reg"><!--구매요청등록-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone">
+            <div class="comp_line flex2">
+                <div>
+                    <button type="button" class="btn btn_basic" id="get_item_odreq_reg" style="padding-right: 5px">
+                        품목 추가<i
+                            class="fa-solid fa-magnifying-glass fa-sm" style="margin-left: 3px"></i></button>
+                    <button type="button" class="btn btn_gray" id="del_odreq_reg">삭제</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn_basic" id="reg_odreq_reg">요청등록</button>
+                </div>
+            </div>
+            <div id="gridtable_odreq_reg"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_odreq_reg = gridform_odreq_reg("gridtable_odreq_reg")
+        setgrid(grid_odreq_reg)
+
+        $("#get_item_odreq_reg").on("click", function () {
+            show_modal("get_item")
+        })
+
+        $("#del_odreq_reg").on("click", function () {
+            let checkedRows = grid_odreq_reg.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 행이 없습니다.")
+                return false;
+            }
+            mpop.confirm("선택 한 행을 삭제 하시겠습니까?", function () {
+                $.each(checkedRows, function (i, row) {
+                    let rowKey = row.rowKey
+                    grid_odreq_reg.removeRow(rowKey)
+                })
+            })
+        })
+
+        $("#reg_odreq_reg").on("click", function () {
+            let checkedRows = grid_odreq_reg.getCheckedRows()
+            if (!checkedRows.length) {
+                mpop.error("선택 한 행이 없습니다.")
+                return false;
+            }
+            // 필수값 확인
+            let allRowsHaveRequiredValue = true;
+            for (let i = 0; i < checkedRows.length; i++) {
+                const rowData = checkedRows[i];
+                if (!rowData.ITEM_QT || rowData.ITEM_QT.trim() === "") {
+                    mpop.error("필수 값을 입력 해주세요.")
+                    grid_odreq_reg.startEditing(rowData["rowKey"], "ITEM_QT")
+                    allRowsHaveRequiredValue = false;
+                    break;
+                }
+            }
+            if (!allRowsHaveRequiredValue) {
+                return false;
+            }
+            // 요청 등록 ajax
+            mpop.confirm("선택 한 행을 요청등록 하시겠습니까?", function () {
+                $.ajax({
+                    url: "{% url 'int:actapi' %}",
+                    type: 'POST',
+                    data: {
+                        action: "ins_odreq",
+                        checkedRows: checkedRows
+                    },
+                    success: function (response) {
+                        if (response["state"]) {
+                            mpop.success("요청 등록하였습니다.")
+                            $.each(checkedRows, function (i, row) {
+                                let rowKey = row.rowKey
+                                grid_odreq_reg.removeRow(rowKey)
+                            })
+                        } else {
+                            mpop.error(response["message"])
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+    </script>
+</div>

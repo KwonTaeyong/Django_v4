@@ -1,0 +1,81 @@
+{% load static %}
+<nav>
+    <ul class="main_menu">
+        <li><a href="#" tabindex="-1"><span style="margin-right: 5px;"><i class="fa-solid fa-file-pen fa-sm"></i></span>구매요청</a>
+            <ul class="sub_menu">
+                <li id="odreq_reg" data-link="{% url 'int:odreq_reg' %}">
+                    <a href="#" tabindex="-1">구매요청 등록</a>
+                </li>
+                <li id="odreq_list" data-link="{% url 'int:odreq_list' %}">
+                    <a href="#" tabindex="-1">구매요청 리스트</a>
+                </li>
+                {#                <li id="odreq_listerp" data-link="{% url 'int:odreq_listerp' %}">#}
+                {#                    <a href="#" tabindex="-1">구매요청(ERP)</a>#}
+                {#                </li>#}
+            </ul>
+        </li>
+        <span></span>
+        <li><a href="#" tabindex="-1"><span style="margin-right: 5px;"><i class="fa-solid fa-file-pen fa-sm"></i></span>구매
+            / 견적</a>
+            <ul class="sub_menu">
+                <li id="od_reg" data-link="{% url 'int:od_reg' %}">
+                    <a href="#" tabindex="-1">구매 등록</a>
+                </li>
+                <li id="od_list" data-link="{% url 'int:od_list' %}">
+                    <a href="#" tabindex="-1">구매 리스트</a>
+                </li>
+                <li id="bid_reg" data-link="{% url 'int:bid_reg' %}">
+                    <a href="#" tabindex="-1">견적 요청 등록</a>
+                </li>
+                <li id="bid_list" data-link="{% url 'int:bid_list' %}">
+                    <a href="#" tabindex="-1">견적 요청 리스트</a>
+                </li>
+            </ul>
+        </li>
+        <span></span>
+        <li><a href="#" tabindex="-1"><span style="margin-right: 5px;"><i
+                class="fa-solid fa-handshake-simple fa-sm"></i></span>계약</a>
+            <ul class="sub_menu">
+                <li id="cont_list" data-link="{% url 'int:cont_list' %}">
+                    <a href="#" tabindex="-1">받은 견적</a>
+                </li>
+                <li id="cont_acc" data-link="{% url 'int:cont_acc' %}">
+                    <a href="#" tabindex="-1">계약 상대자 리스트</a>
+                </li>
+                <li id="cont_ing" data-link="{% url 'int:cont_ing' %}">
+                    <a href="#" tabindex="-1">진행 중 계약</a>
+                </li>
+                <li id="cont_conf" data-link="{% url 'int:cont_conf' %}">
+                    <a href="#" tabindex="-1">완료 된 계약</a>
+                </li>
+            </ul>
+        </li>
+        <span></span>
+        <li><a href="#" tabindex="-1"><span style="margin-right: 5px;"><i class="fa-solid fa-rectangle-list fa-sm"></i></span>품목
+            관리</a>
+            <ul class="sub_menu">
+                <li id="item_list" data-link="{% url 'int:item_list' %}">
+                    <a href="#" tabindex="-1">품목 리스트</a>
+                </li>
+                <li id="item_reg" data-link="{% url 'int:item_reg' %}">
+                    <a href="#" tabindex="-1">품목 등록</a>
+                </li>
+                <li id="item_regexcel" data-link="{% url 'int:item_regexcel' %}">
+                    <a href="#" tabindex="-1">품목 엑셀등록</a>
+                </li>
+            </ul>
+        </li>
+        <span></span>
+        <li><a href="#" tabindex="-1"><span style="margin-right: 5px;"><i class="fa-solid fa-building fa-sm"></i></span>조직
+            관리</a>
+            <ul class="sub_menu">
+                <li id="company_info" data-link="{% url 'int:company_info' %}">
+                    <a href="#" tabindex="-1">회사 정보</a>
+                </li>
+                {#                <li id="menu4_2" data-link="{% url 'int:menu4_2' %}">#}
+                {#                    <a href="#" tabindex="-1">사용자 관리</a>#}
+                {#                </li>#}
+            </ul>
+        </li>
+    </ul>
+</nav>

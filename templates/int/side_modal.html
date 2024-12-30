@@ -1,0 +1,44 @@
+<div id="side_modal_layout">
+    <div class="side_modal">
+    </div>
+</div>
+<script type="text/javascript">
+    function show_modal(action, params) {
+        $.ajax({
+            url: "{% url 'int:modal' %}",
+            type: 'GET',
+            data: {
+                action: action,
+                params: params
+            },
+            success: function (response) {
+                $(".side_modal").append(response).show()
+                setTimeout(function () {
+                    $(".side_modal-content").css("right", "0px")//배경이 나타난 후 박스가 오른쪽에서 나타남
+                }, 100)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    document.querySelector(".side_modal").onclick = function (event) {
+        if ($(".side_modal-content").hasClass("prevclose")) {
+            return false;
+        }
+        if (event.target === document.querySelector(".side_modal")) {
+            hide_modal()
+        }
+    }
+
+    function hide_modal() {
+        let $side_modal_content = $(".side_modal-content")
+        let width = $side_modal_content.innerWidth()
+        $side_modal_content.css("right", "-" + width + "px")//박스 오른쪽으로 사라짐 (박스 width만큼)
+        setTimeout(function () {
+            $(".side_modal").empty().hide()
+        }, 100)
+    }
+</script>
+

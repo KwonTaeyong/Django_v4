@@ -1,0 +1,70 @@
+<div id="cont_list"><!--받은 견적-->
+    <div class="con_title">
+        <h3></h3>
+    </div>
+    <div class="con_box">
+        <div class="zone" style="width: 100%; min-height: 600px">
+            <div class="sub_title_line">
+                <span class="sub_title">받은 견적 목록</span>
+                <button type="button" class="btn refresh_btn" id="re_grid_offernoti" style="margin-left: 30px;"><i
+                        class="fa-solid fa-rotate-right"></i></button>
+            </div>
+            <div>
+                <div id="gridtable_offernoti"></div>
+            </div>
+            <div>
+                <div id="gridtable_offer"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        grid_offernoti = gridform_offernoti("gridtable_offernoti")
+        grid_offer = gridform_offer("gridtable_offer")
+        setgrid(grid_offernoti)
+        setgrid(grid_offer)
+
+        $(document).ready(function () {
+            read_grid_offernoti()
+        })
+
+        $("#re_grid_offernoti").on("click", function () {
+            read_grid_offernoti()
+        })
+
+        function read_grid_offernoti() {
+            const obj = {};
+            obj["action"] = "get_offernoti"
+            grid_offernoti.readData(1, obj, false)
+        }
+
+        grid_offernoti.on('click', ev => {
+            if (ev.targetType !== 'cell') {
+                return false;
+            }
+            let ODBID_ID = grid_offernoti.getRow(ev.rowKey).ODBID_ID
+            const obj = {};
+            obj["action"] = "get_offer"
+            obj["ODBID_ID"] = ODBID_ID
+            grid_offer.readData(1, obj, false)
+        })
+
+        grid_offer.on('click', ev => {
+            if (ev.targetType !== 'cell') {
+                return false;
+            }
+            let ODBID_ID = grid_offer.getRow(ev.rowKey).ODBID_ID
+            let COM_ID = grid_offer.getRow(ev.rowKey).COM_ID
+            let params = {
+                "ODBID_ID": ODBID_ID,
+                "COM_ID": COM_ID
+            }
+            show_modal("get_offer", params)
+        })
+
+        grid_offernoti.on('onGridUpdated', ev => {
+            grid_offer.clear()
+        })
+
+    </script>
+</div>
+

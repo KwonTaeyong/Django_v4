@@ -1,0 +1,122 @@
+/*----------체크박스,NO 헤더 배경색----------*/
+.tui-grid-cell.tui-grid-cell-header.tui-grid-cell-row-header{
+    background-color: #dde6ed;
+}
+
+/*선택시 보더 박스 x*/
+.tui-grid-cell-selected {
+    border: none !important;
+}
+
+/*-----------------------editable 헤더에 표시---------------------------*/
+.custom_header_edit{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+}
+.custom_header_edit::after{
+    content: "\f044";
+    font: var(--fa-font-solid);
+    margin-left: 7px;
+    font-size: 14px;
+    position: absolute;
+    right: 5px;
+    color: #687582;
+}
+
+/*-----------------------editable---------------------------*/
+.tui-grid-cell-editable{
+    background-color: #f7fdff !important;
+}
+
+/*-----------------------required---------------------------*/
+.tui-grid-cell-required{
+    position: relative !important;
+    background-color: #fff7f9 !important;
+}
+.tui-grid-cell-required::after{
+    content: "\2a" !important;
+    font: var(--fa-font-solid) !important;
+    font-size: 10px !important;
+    position: absolute !important;
+    top: 3px !important;
+    left: 4px !important;
+    color: #db93a5 !important;
+}
+.tui-grid-cell-required .tui-grid-cell-content{
+}
+
+/*-----------------------sorting---------------------------*/
+.tui-grid-btn-sorting{
+    background: none;
+    width: 15px !important;
+    margin-left: 2px !important;
+}
+.tui-grid-btn-sorting::after{
+    content: "\f0dc" !important;
+    font: var(--fa-font-solid) !important;
+    font-size: 15px !important;
+    width: 100% !important;
+    height: 100% !important;
+    color: #687582;
+}
+.tui-grid-btn-sorting.tui-grid-btn-sorting-up{
+    position: relative;
+}
+.tui-grid-btn-sorting.tui-grid-btn-sorting-up::after{
+    content: "\f0de" !important;
+    font: var(--fa-font-solid) !important;
+    font-size: 15px !important;
+}
+.tui-grid-btn-sorting.tui-grid-btn-sorting-down{
+    position: relative;
+}
+.tui-grid-btn-sorting.tui-grid-btn-sorting-down::after{
+    content: "\f0dd" !important;
+    font: var(--fa-font-solid) !important;
+    font-size: 15px !important;
+}
+
+/*-----------------------filter---------------------------*/
+.tui-grid-btn-filter{
+    background: none;
+    width: 19px !important;
+    height: 18px !important;
+    margin-left: 2px;
+    background-color: #c0c6cc;
+    border-radius: 3px;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.tui-grid-cell.tui-grid-cell-header .tui-grid-btn-filter:active{
+    background-color: #687582;
+}
+.tui-grid-btn-filter::after{
+    content: "\f002" !important;
+    font: var(--fa-font-solid) !important;
+    font-size: 11px !important;
+    color: #fff;
+}
+.tui-grid-btn-filter.tui-grid-filter-icon{
+    width: 24px !important;
+    height: 24px !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.tui-grid-filter-btn.tui-grid-filter-btn-clear{
+    background-color: #687582;
+    border: none;
+}
+.tui-grid-filter-btn.tui-grid-filter-btn-apply{
+    background-color: #6fa0d1;
+    border: none;
+}
+
+.tui-grid-cell-summary {
+    text-align: right;
+    font-size: 15px;
+}

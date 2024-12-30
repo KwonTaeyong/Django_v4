@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>forB2B</title>
+    <!--파비콘-->
+    <link rel="shortcut icon" href="{% static 'common/img/favicon.ico' %}"/>
+    <!-- 폰트어썸 -->
+    <script src="https://kit.fontawesome.com/e1807ed9b8.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <!-- 제이쿼리 -->
+    <script src="{% static 'common/js/jquery-3.6.0.min.js' %}"></script>
+    <!-- xlsx -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <!-- 토스트그리드 -->
+    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+    <!-- 토스트그리드 페이지네이션 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css"/>
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <!-- 토스트그리드 데이트피커 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css"/>
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+    <!-- 토스트그리드 -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css"/>
+    <script src="{% static 'common/js/tui-grid_4.21.16.js' %}"></script>
+    <!-- js -->
+    <script src="{% static 'int/i_js/i_gridform.js' %}"></script>
+    <script src="{% static 'int/i_js/ajaxset.js' %}"></script>
+    <!-- CSS -->
+    <link href="{% static 'int/i_css/i_style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'int/i_css/i_content.css' %}" rel="stylesheet"/>
+    <link href="{% static 'int/i_css/i_layer.css' %}" rel="stylesheet"/>
+    <link href="{% static 'int/i_css/i_grid.css' %}" rel="stylesheet"/>
+    <link href="{% static 'int/i_css/side_modal.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="header_left">
+        <a href="/int/"><img src="{% static 'int/i_img/i_logo_bl.png' %}"></a>
+        <a href="{% url 'ext:index' %}">공급Web</a>
+    </div>
+    <div class="header_right">
+        {% if user.is_authenticated %}
+            <a href="{% url 'common:logout' %}" tabindex="-1">
+                <span>{{ user.first_name }}</span>
+                <i class="fa-solid fa-circle-user fa-xl"></i>
+            </a>
+        {% endif %}
+    </div>
+</header>
+<main>
+    {% include "int/i_navbar.html" %}
+    <div>
+        {% include "int/i_comp.html" %}
+    </div>
+    <script src="{% static 'int/i_js/i_comp.js' %}"></script>
+    <div class="main_wrap" style="z-index: 1;">
+        {% block content %}
+        {% endblock %}
+        {% block script %}
+        {% endblock %}
+    </div>
+    {% include "int/side_modal.html" %}
+</main>
+<script>
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
+</script>
+</body>
+</html>
